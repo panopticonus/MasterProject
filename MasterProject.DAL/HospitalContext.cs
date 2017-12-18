@@ -1,9 +1,10 @@
 namespace MasterProject.DAL
 {
+    using Microsoft.AspNet.Identity.EntityFramework;
     using Model;
     using System.Data.Entity;
 
-    public partial class HospitalContext : DbContext
+    public class HospitalContext : IdentityDbContext<AppUser>
     {
         public HospitalContext()
             : base("name=HospitalContext")
@@ -33,6 +34,10 @@ namespace MasterProject.DAL
             modelBuilder.Entity<Patients>()
                 .Property(e => e.Pesel)
                 .IsFixedLength();
+
+            modelBuilder.Entity<IdentityUserLogin>().HasKey(l => l.UserId);
+            modelBuilder.Entity<IdentityRole>().HasKey(r => r.Id);
+            modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
         }
     }
 }

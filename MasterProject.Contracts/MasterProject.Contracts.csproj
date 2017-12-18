@@ -40,8 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\Country.cs" />
     <Compile Include="HospitalManager\IManagerData.cs" />
+    <Compile Include="HospitalManager\IManagerLanguages.cs" />
     <Compile Include="HospitalRepository\IRepositoryData.cs" />
+    <Compile Include="HospitalRepository\IRepositoryLanguages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
