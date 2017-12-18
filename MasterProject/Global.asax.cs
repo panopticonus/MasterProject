@@ -1,6 +1,6 @@
 ﻿namespace MasterProject
 {
-    using Repository.Data;
+    using Manager.Data;
     using System.Web.Mvc;
     using System.Web.Routing;
 
