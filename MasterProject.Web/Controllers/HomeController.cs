@@ -3,6 +3,7 @@
     using Core.Interfaces.Repositories;
     using System.Web.Mvc;
 
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILanguagesRepository _languagesRepository;
@@ -17,6 +18,12 @@
         {
             var countryList = _languagesRepository.GetCountriesList();
 
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult Login()
+        {
             return View();
         }
     }
