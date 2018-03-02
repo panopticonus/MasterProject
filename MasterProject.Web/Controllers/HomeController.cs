@@ -13,17 +13,10 @@
             this._languagesRepository = languagesRepository;
         }
 
-        // GET: Home
         public ActionResult Index()
         {
             var countryList = _languagesRepository.GetCountriesList();
 
-            return View();
-        }
-
-        [AllowAnonymous]
-        public ActionResult Login()
-        {
             return View();
         }
     }

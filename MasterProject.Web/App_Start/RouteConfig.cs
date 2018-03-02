@@ -12,7 +12,7 @@
             routes.MapRoute(
                 name: "Login",
                 url: "logowanie",
-                defaults: new { controller = "Home", action = "Login" }
+                defaults: new { controller = "Account", action = "Login" }
             );
 
             routes.MapRoute(
@@ -22,9 +22,15 @@
             );
 
             routes.MapRoute(
+                name: "Logout",
+                url: "wylogowanie",
+                defaults: new { controller = "Account", action = "Logout" }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "",
-                defaults: new { controller = "Home", action = "Login", id = UrlParameter.Optional }
+                defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional }
             );
         }
     }

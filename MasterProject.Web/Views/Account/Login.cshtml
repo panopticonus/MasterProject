@@ -1,0 +1,36 @@
+﻿@model MasterProject.Web.Models.LoginViewModel
+
+<!doctype html>
+
+<html lang="pl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="~/Images/favicon.ico">
+    <title>Logowanie</title>
+    <!-- Bootstrap core CSS -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    @Styles.Render("~/Content/login")
+</head>
+
+<body class="text-center">
+    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form-signin" }))
+    {
+        <img class="mb-4" src="~/Images/hospital.svg" alt="" width="80" height="80">
+        <h1 class="h3 mb-3 font-weight-normal">Zaloguj się</h1>
+        @Html.TextBoxFor(x => x.UserName, new { type = "text", id = "inputUserName", placeholder = "Nazwa użytkownika", required = "", autofocus = "", @class = "form-control" })
+        @Html.PasswordFor(x => x.Password, new { type = "password", id = "inputPassword", placeholder = "Hasło", required = "", @class = "form-control" })
+        <div class="checkbox mb-3">
+            <label>
+                @Html.CheckBoxFor(x => x.RememberMe, new { type = "checkbox" })
+                Nie wylogowuj mnie
+            </label>
+        </div>
+        <button style="background-color: #319997; border-color: #319997" class="btn btn-lg btn-primary btn-block" type="submit">Zaloguj się</button>
+        <p class="mt-5 mb-3 text-muted">&copy; Kamil Lang 2017-2018</p>
+    }
+</body>
+</html>
