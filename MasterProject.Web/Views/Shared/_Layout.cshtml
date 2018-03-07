@@ -30,15 +30,15 @@
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")" href="@Url.Action("Index", "Home")">
                                 <span data-feather="home"></span>
                                 Dashboard <span class="sr-only">(current)</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="file"></span>
-                                Orders
+                            <a class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "EkgMeasurement" ? "active" : "")" href="@Url.Action("EkgMeasurement", "Home")">
+                                <span data-feather="clipboard"></span>
+                                Pomiar EKG
                             </a>
                         </li>
                         <li class="nav-item">

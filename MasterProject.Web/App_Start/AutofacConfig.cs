@@ -1,10 +1,12 @@
 ﻿namespace MasterProject.Web.App_Start
 {
-    using System.Web.Mvc;
     using Autofac;
     using Autofac.Integration.Mvc;
     using Core;
+    using Core.Interfaces.Managers;
+    using Manager;
     using Persistence;
+    using System.Web.Mvc;
 
     public class AutofacConfig
     {
@@ -17,6 +19,7 @@
             builder.RegisterAssemblyTypes(typeof(HospitalContext).Assembly)
                 .Where(t => t.Name.EndsWith("Repository"))
                 .AsImplementedInterfaces();
+            builder.RegisterType<HomeManager>().As<IHomeManager>().SingleInstance();
             builder.RegisterFilterProvider();
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));

@@ -45,6 +45,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -54,7 +55,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dto\Country.cs" />
+    <Compile Include="Dto\DataPoints.cs" />
+    <Compile Include="Enums\DeviceTypes.cs" />
     <Compile Include="IHospitalContext.cs" />
+    <Compile Include="Interfaces\Managers\IHomeManager.cs" />
     <Compile Include="Interfaces\Repositories\ILanguagesRepository.cs" />
     <Compile Include="Models\Adresses.cs" />
     <Compile Include="Models\Countries.cs" />

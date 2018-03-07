@@ -22,6 +22,18 @@
             );
 
             routes.MapRoute(
+                name: "ReadData",
+                url: "Home/ReadData",
+                defaults: new { controller = "Home", action = "ReadData" }
+            );
+
+            routes.MapRoute(
+                name: "EkgMeasurement",
+                url: "pomiar-ekg",
+                defaults: new { controller = "Home", action = "EkgMeasurement" }
+            );
+
+            routes.MapRoute(
                 name: "Logout",
                 url: "wylogowanie",
                 defaults: new { controller = "Account", action = "Logout" }
