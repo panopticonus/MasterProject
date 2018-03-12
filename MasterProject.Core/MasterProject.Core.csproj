@@ -54,11 +54,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dto\AccountDto.cs" />
     <Compile Include="Dto\Country.cs" />
     <Compile Include="Dto\DataPoints.cs" />
     <Compile Include="Enums\DeviceTypes.cs" />
     <Compile Include="IHospitalContext.cs" />
     <Compile Include="Interfaces\Managers\IHomeManager.cs" />
+    <Compile Include="Interfaces\Repositories\IAccountsRepository.cs" />
     <Compile Include="Interfaces\Repositories\ILanguagesRepository.cs" />
     <Compile Include="Models\Adresses.cs" />
     <Compile Include="Models\Countries.cs" />

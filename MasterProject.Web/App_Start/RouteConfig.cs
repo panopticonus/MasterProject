@@ -40,6 +40,12 @@
             );
 
             routes.MapRoute(
+                name: "CreateAccount",
+                url: "utworz-konto",
+                defaults: new { controller = "Account", action = "CreateAccount" }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "",
                 defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional }
