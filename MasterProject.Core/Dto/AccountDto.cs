@@ -3,7 +3,6 @@
     public class AccountDto
     {
         public int Role { get; set; }
-        public string Pwz { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string UserName { get; set; }

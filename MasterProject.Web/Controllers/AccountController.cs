@@ -66,7 +66,6 @@
             var account = new AccountDto
             {
                 Role = Convert.ToInt32(form["role"]),
-                Pwz = form["pwz"],
                 Name = form["name"],
                 Surname = form["surname"],
                 UserName = form["userName"],
@@ -78,8 +77,8 @@
 
             return Json(new
             {
-                type = "OK",
-                message = "Poprawnie dodano użytkownika"
+                type = result ? "OK" : "Error",
+                message = result ? "Poprawnie dodano użytkownika" : "Wystąpił błąd!"
             });
         }
 

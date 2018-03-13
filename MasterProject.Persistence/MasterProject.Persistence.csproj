@@ -76,14 +76,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EntityConfiguration\AdressesConfiguration.cs" />
+    <Compile Include="EntityConfiguration\AddressesConfiguration.cs" />
     <Compile Include="EntityConfiguration\CountriesConfiguration.cs" />
+    <Compile Include="EntityConfiguration\DoctorsConfiguration.cs" />
+    <Compile Include="EntityConfiguration\NursesConfiguration.cs" />
     <Compile Include="EntityConfiguration\PatientsConfiguration.cs" />
+    <Compile Include="EntityConfiguration\SpecialtiesConfiguration.cs" />
     <Compile Include="EntityConfiguration\UsersConfiguration.cs" />
     <Compile Include="EntityConfiguration\WardsConfiguration.cs" />
-    <Compile Include="Migrations\201802272106247_Initial.cs" />
-    <Compile Include="Migrations\201802272106247_Initial.Designer.cs">
-      <DependentUpon>201802272106247_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201803131937026_Initial.cs" />
+    <Compile Include="Migrations\201803131937026_Initial.Designer.cs">
+      <DependentUpon>201803131937026_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="HospitalContext.cs" />
@@ -96,15 +99,15 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201802272106247_Initial.resx">
-      <DependentUpon>201802272106247_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\MasterProject.Core\MasterProject.Core.csproj">
       <Project>{03F685AC-DB17-4415-9E09-39244CFE5C96}</Project>
       <Name>MasterProject.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201803131937026_Initial.resx">
+      <DependentUpon>201803131937026_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
