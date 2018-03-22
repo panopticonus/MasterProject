@@ -1,12 +1,13 @@
 ﻿namespace MasterProject.Persistence.Repositories
 {
     using Core.Dto;
-    using Core.Enums;
+    using Enums = Core.Enums;
     using Core.Interfaces.Repositories;
     using Core.Models;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using System;
+    using System.Linq;
 
     public class AccountsRepository : IAccountsRepository
     {
@@ -29,7 +30,7 @@
                 var result = new IdentityResult();
                 if (chkUser.Succeeded)
                 {
-                    result = userManager.AddToRole(user.Id, ((Roles) account.Role).ToString());
+                    result = userManager.AddToRole(user.Id, ((Enums.Roles)account.Role).ToString());
                 }
 
                 return result.Succeeded;
@@ -38,6 +39,46 @@
             {
                 return false;
             }
+        }
+
+        public bool CheckUserDataComplete(string id)
+        {
+            try
+            {
+                var context = new HospitalContext();
+                var userManager = new UserManager<Users>(new UserStore<Users>(context));
+
+                var user = userManager.FindById(id);
+
+                return user.IsDataComplete;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public bool AddAccountDetails(AccountDto account)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetUserRole(string userId)
+        {
+            var context = new HospitalContext();
+            var userManager = new UserManager<Users>(new UserStore<Users>(context));
+
+            var user = userManager.FindById(userId);
+            var identityUserRole = user.Roles.FirstOrDefault();
+
+            var roleId = 0;
+            if (identityUserRole != null)
+            {
+                var id = identityUserRole.RoleId;
+                roleId = context.ExpandedRoles.Single(x => x.Id == id).RoleId;
+            }
+
+            return roleId;
         }
     }
 }

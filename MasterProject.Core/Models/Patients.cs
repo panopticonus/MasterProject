@@ -6,6 +6,7 @@ namespace MasterProject.Core.Models
     {
         public int Id { get; set; }
         public int AddressId { get; set; }
+        public virtual Addresses Address { get; set; }
         public int? InsuranceId { get; set; }
         public string FirstName { get; set; }
         public string SecondName { get; set; }

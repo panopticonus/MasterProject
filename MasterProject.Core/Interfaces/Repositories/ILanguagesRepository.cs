@@ -5,6 +5,6 @@
 
     public interface ILanguagesRepository
     {
-        List<Country> GetCountriesList();
+        List<CountryHeaderDto> GetCountriesList();
     }
 }

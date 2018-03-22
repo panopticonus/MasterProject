@@ -32,9 +32,10 @@ namespace MasterProject.Web
             {
 
                 // first we create Admin rool   
-                var role = new IdentityRole
+                var role = new Roles
                 {
-                    Name = "Admin"
+                    Name = "Admin",
+                    RoleId = 1
                 };
                 roleManager.Create(role);
 
@@ -58,9 +59,10 @@ namespace MasterProject.Web
             // creating Doctor role    
             if (!roleManager.RoleExists("Doctor"))
             {
-                var role = new IdentityRole
+                var role = new Roles
                 {
-                    Name = "Doctor"
+                    Name = "Doctor",
+                    RoleId = 2
                 };
                 roleManager.Create(role);
             }
@@ -68,9 +70,10 @@ namespace MasterProject.Web
             // creating Nurse role    
             if (!roleManager.RoleExists("Nurse"))
             {
-                var role = new IdentityRole
+                var role = new Roles
                 {
-                    Name = "Nurse"
+                    Name = "Nurse",
+                    RoleId = 3
                 };
                 roleManager.Create(role);
             }

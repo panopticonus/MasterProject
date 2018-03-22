@@ -9,6 +9,7 @@
         {
             HasKey(x => x.Id);
             Property(x => x.Name).IsRequired().HasMaxLength(100);
+            HasOptional(x => x.HeadOfWard).WithMany().HasForeignKey(x => x.HeadOfWardId);
         }
     }
 }

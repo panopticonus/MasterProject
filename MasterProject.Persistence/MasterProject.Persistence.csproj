@@ -88,6 +88,14 @@
     <Compile Include="Migrations\201803131937026_Initial.Designer.cs">
       <DependentUpon>201803131937026_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803150951559_AddIntRoleId.cs" />
+    <Compile Include="Migrations\201803150951559_AddIntRoleId.Designer.cs">
+      <DependentUpon>201803150951559_AddIntRoleId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803222250024_HeadOfWardForeignKey.cs" />
+    <Compile Include="Migrations\201803222250024_HeadOfWardForeignKey.Designer.cs">
+      <DependentUpon>201803222250024_HeadOfWardForeignKey.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="HospitalContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -108,6 +116,15 @@
     <EmbeddedResource Include="Migrations\201803131937026_Initial.resx">
       <DependentUpon>201803131937026_Initial.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803150951559_AddIntRoleId.resx">
+      <DependentUpon>201803150951559_AddIntRoleId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803222250024_HeadOfWardForeignKey.resx">
+      <DependentUpon>201803222250024_HeadOfWardForeignKey.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\CountryDataScript.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

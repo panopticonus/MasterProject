@@ -12,7 +12,7 @@
         public string PhoneNumber { get; set; }
         public int WardId { get; set; }
         public virtual Wards Ward { get; set; }
-        public int AdressId { get; set; }
+        public int AddressId { get; set; }
         public virtual Addresses Address { get; set; }
         public string UserId { get; set; }
         public virtual Users User { get; set; }

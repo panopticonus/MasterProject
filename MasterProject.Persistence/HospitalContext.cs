@@ -22,6 +22,8 @@ namespace MasterProject.Persistence
         public virtual DbSet<WardStays> WardStays { get; set; }
         public virtual DbSet<Nurses> Nurses { get; set; }
         public virtual DbSet<Specialties> Specialties { get; set; }
+        public virtual DbSet<Roles> ExpandedRoles { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

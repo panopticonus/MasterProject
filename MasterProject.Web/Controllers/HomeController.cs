@@ -1,26 +1,21 @@
 ﻿namespace MasterProject.Web.Controllers
 {
-    using Core.Interfaces.Managers;
-    using Core.Interfaces.Repositories;
-    using System.Web.Mvc;
     using Core.Enums;
+    using Core.Interfaces.Managers;
+    using System.Web.Mvc;
 
     [Authorize]
     public class HomeController : Controller
     {
-        private readonly ILanguagesRepository _languagesRepository;
         private readonly IHomeManager _homeManager;
 
-        public HomeController(ILanguagesRepository languagesRepository, IHomeManager homeManager)
+        public HomeController(IHomeManager homeManager)
         {
-            this._languagesRepository = languagesRepository;
             this._homeManager = homeManager;
         }
 
         public ActionResult Index()
         {
-            var countryList = _languagesRepository.GetCountriesList();
-
             return View();
         }
 

@@ -16,6 +16,12 @@
             );
 
             routes.MapRoute(
+                name: "AddAccountDetails",
+                url: "uzupelnij-dane",
+                defaults: new { controller = "Account", action = "AddAccountDetails" }
+            );
+
+            routes.MapRoute(
                 name: "MainPage",
                 url: "dashboard",
                 defaults: new { controller = "Home", action = "Index" }
