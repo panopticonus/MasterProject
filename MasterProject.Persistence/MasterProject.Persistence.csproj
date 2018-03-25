@@ -101,6 +101,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AccountsRepository.cs" />
     <Compile Include="Repositories\LanguagesRepository.cs" />
+    <Compile Include="Repositories\SpecialtiesRepository.cs" />
+    <Compile Include="Repositories\WardsRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

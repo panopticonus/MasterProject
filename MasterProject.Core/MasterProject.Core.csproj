@@ -64,6 +64,8 @@
     <Compile Include="Interfaces\Managers\IHomeManager.cs" />
     <Compile Include="Interfaces\Repositories\IAccountsRepository.cs" />
     <Compile Include="Interfaces\Repositories\ILanguagesRepository.cs" />
+    <Compile Include="Interfaces\Repositories\ISpecialtiesRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IWardsRepository.cs" />
     <Compile Include="Models\Addresses.cs" />
     <Compile Include="Models\Countries.cs" />
     <Compile Include="Models\Doctors.cs" />

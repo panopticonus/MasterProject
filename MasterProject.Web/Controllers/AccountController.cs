@@ -3,7 +3,6 @@
     using Core.Dto;
     using Core.Interfaces.Repositories;
     using Core.Models;
-    using Enums = Core.Enums;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
@@ -11,6 +10,7 @@
     using System;
     using System.Web;
     using System.Web.Mvc;
+    using Enums = Core.Enums;
 
     [Authorize]
     public class AccountController : Controller
@@ -22,11 +22,15 @@
 
         private readonly IAccountsRepository _repository;
         private readonly ILanguagesRepository _languagesRepository;
+        private readonly IWardsRepository _wardsRepository;
+        private readonly ISpecialtiesRepository _specialtiesRepository;
 
-        public AccountController(ILanguagesRepository languagesRepository, IAccountsRepository repository)
+        public AccountController(ILanguagesRepository languagesRepository, IAccountsRepository repository, IWardsRepository wardsRepository, ISpecialtiesRepository specialtiesRepository)
         {
             this._languagesRepository = languagesRepository;
             this._repository = repository;
+            this._wardsRepository = wardsRepository;
+            this._specialtiesRepository = specialtiesRepository;
         }
 
         [AllowAnonymous]
@@ -66,7 +70,8 @@
                 Countries = _languagesRepository.GetCountriesList(),
                 RoleId = _repository.GetUserRole(userId),
                 UserId = userId,
-#warning dodać oddziały
+                Wards = _wardsRepository.GetWardList(),
+                Specialties = _specialtiesRepository.GetSpecialtyList()
             };
 
             return View(model);
@@ -85,7 +90,13 @@
                 CountryId = Convert.ToInt32(form["Countries"]),
                 PhoneNumber = form["phonenumber"],
                 RoleId = Convert.ToInt32(form["RoleId"]),
-                UserId = form["UserId"]
+                UserId = form["UserId"],
+                DateOfBirth = Convert.ToDateTime(form["dateofbirth"]),
+                WardId = Convert.ToInt32(form["Wards"]),
+                Degree = form["degree"],
+                Pwz = form["pwz"],
+                SpecialtyId = Convert.ToInt32(form["Specialties"]),
+                DegreeOfSpecialty = Convert.ToInt32(form["degreeofspecialty"])
             };
 
             var result = _repository.AddAccountDetails(account);

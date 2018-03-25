@@ -1,4 +1,5 @@
-﻿@model MasterProject.Web.Models.AddAccountDetailsViewModel
+﻿@using Enums = MasterProject.Core.Enums;
+@model MasterProject.Web.Models.AddAccountDetailsViewModel
 
 @{
     ViewBag.Title = "Uzupełnianie danych";
@@ -105,7 +106,46 @@
                             <label>Data urodzenia</label>
                             <input type="text" placeholder="Data urodzenia" class="form-control" name="dateofbirth" id="dateofbirth" required="">
                         </div>
+                        <div class="col-sm-6 form-group">
+                            <label>Oddział</label>
+                            @Html.DropDownListFor(m => m.Wards, Model.Wards.Select(f => new SelectListItem
+                            {
+                                Value = f.Id.ToString(),
+                                Text = f.Name
+                            }), new { @class = "form-control", @id = "Wards", required = "" })
+                        </div>
                     </div>
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <label>Tytuł naukowy</label>
+                            <input type="text" placeholder="Tytuł naukowy" class="form-control" name="degree" required="">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label>Nr prawa wykonywania zawodu (PWZ)</label>
+                            <input type="text" placeholder="Numer PWZ" class="form-control" name="pwz" required="" pattern=".{7,7}" title="Podaj poprawny numer PWZ!">
+                        </div>
+                    </div>
+                    @if (Model.RoleId == (int)Enums.Roles.Doctor)
+                    {
+                        <div class="row">
+                            <div class="col-sm-6 form-group">
+                                <label>Specjalizacja</label>
+                                @Html.DropDownListFor(m => m.Specialties, Model.Specialties.Select(f => new SelectListItem
+                                {
+                                    Value = f.Id.ToString(),
+                                    Text = f.Name
+                                }), new { @class = "form-control", @id = "Specialties", required = "" })
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <label>Stopień specjalizacji</label>
+                                <select class="form-control" id="degreeofspecialty" name="degreeofspecialty" required>
+                                    <option value="1">Specjalizacja</option>
+                                    <option value="2">Specjalizacja I stopnia</option>
+                                    <option value="3">Specjalizacja II stopnia</option>
+                                </select>
+                            </div>
+                        </div>
+                    }
 
                     <button type="submit" class="btn btn-lg btn-info">Uzupełnij dane</button>
                 </div>

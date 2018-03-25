@@ -15,5 +15,6 @@
         DbSet<Nurses> Nurses { get; set; }
         DbSet<Specialties> Specialties { get; set; }
         DbSet<Roles> ExpandedRoles { get; set; }
+        int SaveChanges();
     }
 }

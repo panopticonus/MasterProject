@@ -1,4 +1,6 @@
-﻿namespace MasterProject.Core.Dto
+﻿using System;
+
+namespace MasterProject.Core.Dto
 {
     public class AccountDto
     {
@@ -17,5 +19,11 @@
         public string PhoneNumber { get; set; }
         public int RoleId { get; set; }
         public string UserId { get; set; }
+        public DateTime DateOfBirth { get; set; }
+        public int WardId { get; set; }
+        public string Degree { get; set; }
+        public string Pwz { get; set; }
+        public int DegreeOfSpecialty { get; set; }
+        public int SpecialtyId { get; set; }
     }
 }
