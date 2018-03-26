@@ -57,6 +57,8 @@
     <Compile Include="Dto\AccountDto.cs" />
     <Compile Include="Dto\CountryHeaderDto.cs" />
     <Compile Include="Dto\DataPoints.cs" />
+    <Compile Include="Dto\DataTablesObject.cs" />
+    <Compile Include="Dto\SearchFilters.cs" />
     <Compile Include="Enums\DeviceTypes.cs" />
     <Compile Include="Enums\Roles.cs" />
     <Compile Include="Enums\Specialties.cs" />

@@ -7,8 +7,10 @@
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using Enums = Core.Enums;
+    using System.Linq.Dynamic;
 
     public class AccountsRepository : IAccountsRepository
     {
@@ -153,6 +155,46 @@
             }
 
             return roleId;
+        }
+
+        public DataTablesObject<AccountDto> GetAccountList(SearchFilters searchFilter)
+        {
+            var accountList = new List<AccountDto>();
+
+            var doctors = (from doctor in _context.Doctors
+                           select new AccountDto
+                           {
+                               RoleName = "Doktor",
+                               Name = doctor.FirstName,
+                               Surname = doctor.Surname,
+                               WardName = doctor.Ward.Name,
+                               PhoneNumber = doctor.PhoneNumber
+                           }).ToList();
+
+            var nurses = (from nurse in _context.Nurses
+                          select new AccountDto
+                          {
+                              RoleName = "Pielęgniarka",
+                              Name = nurse.FirstName,
+                              Surname = nurse.Surname,
+                              WardName = nurse.Ward.Name,
+                              PhoneNumber = nurse.PhoneNumber
+                          }).ToList();
+
+            accountList.AddRange(doctors);
+            accountList.AddRange(nurses);
+
+            var count = 1;
+            accountList.ForEach(x => x.Id = count++);
+
+            var outputList = accountList.OrderBy(searchFilter.OrderBy).Skip(searchFilter.DisplayStart)
+                .Take(searchFilter.DisplayLength).ToList();
+
+            var postRequests = new DataTablesObject<AccountDto>();
+            postRequests.iTotalRecords = postRequests.iTotalDisplayRecords = accountList.Count;
+            postRequests.aaData = outputList;
+
+            return postRequests;
         }
     }
 }

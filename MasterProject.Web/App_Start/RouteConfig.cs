@@ -52,6 +52,18 @@
             );
 
             routes.MapRoute(
+                name: "AccountList",
+                url: "lista-pracownikow",
+                defaults: new { controller = "Account", action = "AccountList" }
+            );
+
+            routes.MapRoute(
+                name: "AccountListDataTable",
+                url: "Account/AccountListDataTable",
+                defaults: new { controller = "Account", action = "AccountListDataTable" }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "",
                 defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional }

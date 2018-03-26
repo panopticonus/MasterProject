@@ -8,5 +8,6 @@ namespace MasterProject.Core.Interfaces.Repositories
         bool CheckUserDataComplete(string id);
         bool AddAccountDetails(AccountDto account);
         int GetUserRole(string id);
+        DataTablesObject<AccountDto> GetAccountList(SearchFilters searchFilter);
     }
 }

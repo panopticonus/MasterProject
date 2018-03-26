@@ -150,6 +150,10 @@
     <Content Include="Content\bootstrap-datepicker.standalone.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\dashboard.css" />
+    <Content Include="Content\DataTables-1.10.16\images\sort_asc.png" />
+    <Content Include="Content\DataTables-1.10.16\images\sort_both.png" />
+    <Content Include="Content\DataTables-1.10.16\images\sort_desc.png" />
+    <Content Include="Content\datatables.min.css" />
     <Content Include="Content\signin.css" />
     <Content Include="Content\toastr.min.css" />
     <Content Include="Global.asax" />
@@ -157,6 +161,7 @@
     <Content Include="Images\hospital.svg" />
     <Content Include="Scripts\bootstrap-datepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\datatables.min.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.pl.min.js" />
     <Content Include="Scripts\popper.min.js" />
@@ -190,6 +195,7 @@
     <Content Include="Views\Home\EkgMeasurement.cshtml" />
     <Content Include="Views\Account\CreateAccount.cshtml" />
     <Content Include="Views\Account\AddAccountDetails.cshtml" />
+    <Content Include="Views\Account\AccountList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -4,9 +4,13 @@ namespace MasterProject.Core.Dto
 {
     public class AccountDto
     {
-        public int Role { get; set; }
+        public int Id { get; set; }
+        public string RoleName { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
+        public string WardName { get; set; }
+        public string PhoneNumber { get; set; }
+        public int Role { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
@@ -16,7 +20,6 @@ namespace MasterProject.Core.Dto
         public string ZipCode { get; set; }
         public string City { get; set; }
         public int CountryId { get; set; }
-        public string PhoneNumber { get; set; }
         public int RoleId { get; set; }
         public string UserId { get; set; }
         public DateTime DateOfBirth { get; set; }

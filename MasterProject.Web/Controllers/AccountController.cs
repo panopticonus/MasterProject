@@ -142,6 +142,30 @@
             });
         }
 
+        public ActionResult AccountList()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AccountListDataTable(FormCollection form)
+        {
+            var orderColumn = Convert.ToInt32(form["order[0][column]"]);
+            var searchFilter = new SearchFilters(form)
+            {
+                OrderBy = $"{typeof(AccountDto).GetProperties()[orderColumn].Name} {form["order[0][dir]"].ToUpper()}"
+            };
+
+            var postRequests = this._repository.GetAccountList(searchFilter);
+
+            return Json(new
+            {
+                postRequests.iTotalRecords,
+                postRequests.iTotalDisplayRecords,
+                postRequests.aaData
+            });
+        }
+
         private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
     }
 }
