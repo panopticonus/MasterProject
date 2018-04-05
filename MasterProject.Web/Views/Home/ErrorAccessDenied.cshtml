@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Brak dostępu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+    <div class="container">
+        <div id="smallNav">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="@Url.Action("Index", "Home")">Strona główna</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a>
+                        <b>Wystąpił błąd!</b>
+                    </a>
+                </li>
+            </ol>
+        </div>
+        <div class="view">
+            <div class="alert alert-danger" contenteditable="false">
+                <h4>Wystąpił błąd!</h4>
+                <strong>Nie posiadasz dostępu do tego zasobu.</strong>
+            </div>
+        </div>
+    </div>
+</main>

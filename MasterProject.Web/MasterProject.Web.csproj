@@ -176,10 +176,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PatientController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AddAccountDetailsViewModel.cs" />
+    <Compile Include="Models\AddPatientViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -196,6 +198,9 @@
     <Content Include="Views\Account\CreateAccount.cshtml" />
     <Content Include="Views\Account\AddAccountDetails.cshtml" />
     <Content Include="Views\Account\AccountList.cshtml" />
+    <Content Include="Views\Patient\PatientList.cshtml" />
+    <Content Include="Views\Patient\AddPatient.cshtml" />
+    <Content Include="Views\Home\ErrorAccessDenied.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

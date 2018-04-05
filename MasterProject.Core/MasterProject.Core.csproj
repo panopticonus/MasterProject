@@ -58,6 +58,7 @@
     <Compile Include="Dto\CountryHeaderDto.cs" />
     <Compile Include="Dto\DataPoints.cs" />
     <Compile Include="Dto\DataTablesObject.cs" />
+    <Compile Include="Dto\PatientDto.cs" />
     <Compile Include="Dto\SearchFilters.cs" />
     <Compile Include="Enums\DeviceTypes.cs" />
     <Compile Include="Enums\Roles.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="Interfaces\Managers\IHomeManager.cs" />
     <Compile Include="Interfaces\Repositories\IAccountsRepository.cs" />
     <Compile Include="Interfaces\Repositories\ILanguagesRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IPatientsRepository.cs" />
     <Compile Include="Interfaces\Repositories\ISpecialtiesRepository.cs" />
     <Compile Include="Interfaces\Repositories\IWardsRepository.cs" />
     <Compile Include="Models\Addresses.cs" />

@@ -24,6 +24,11 @@
             return View();
         }
 
+        public ActionResult ErrorAccessDenied()
+        {
+            return View();
+        }
+
         [HttpPost]
         public JsonResult ReadEkgData()
         {

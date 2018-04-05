@@ -115,12 +115,14 @@
             return RedirectToAction("Login", "Account");
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult CreateAccount()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public JsonResult CreateAccount(FormCollection form)
         {
             var account = new AccountDto
@@ -142,12 +144,14 @@
             });
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult AccountList()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult AccountListDataTable(FormCollection form)
         {
             var orderColumn = Convert.ToInt32(form["order[0][column]"]);

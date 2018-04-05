@@ -40,6 +40,12 @@
             );
 
             routes.MapRoute(
+                name: "ErrorAccessDenied",
+                url: "Home/ErrorAccessDenied",
+                defaults: new { controller = "Home", action = "ErrorAccessDenied" }
+            );
+            
+            routes.MapRoute(
                 name: "Logout",
                 url: "wylogowanie",
                 defaults: new { controller = "Account", action = "Logout" }
@@ -61,6 +67,18 @@
                 name: "AccountListDataTable",
                 url: "Account/AccountListDataTable",
                 defaults: new { controller = "Account", action = "AccountListDataTable" }
+            );
+
+            routes.MapRoute(
+                name: "PatientList",
+                url: "lista-pacjentow",
+                defaults: new { controller = "Patient", action = "PatientList" }
+            );
+
+            routes.MapRoute(
+                name: "AddPatient",
+                url: "dodaj-pacjenta",
+                defaults: new { controller = "Patient", action = "AddPatient" }
             );
 
             routes.MapRoute(

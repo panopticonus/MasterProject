@@ -1,0 +1,133 @@
+﻿@model MasterProject.Web.Models.AddPatientViewModel
+
+@{
+    ViewBag.Title = "Dodaj pacjenta";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/bootstrap-datepicker.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-datepicker.standalone.min.css" rel="stylesheet" />
+
+@section scripts{
+    <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
+    <script src="~/Scripts/locales/bootstrap-datepicker.pl.min.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#dateofbirth').datepicker({
+                language: "pl"
+            });
+        });
+
+        $("#addPatientForm").submit(function (event) {
+            event.preventDefault();
+            $.ajax({
+                url: $(this).attr("action"),
+                data: $(this).serialize(),
+                type: 'POST',
+                async: false,
+                dataType: 'json',
+                success: function (data) {
+                    if (data != null && data.type == 'OK') {
+                        toastr.success(data.message);
+                        setTimeout(function () { window.location.href = '/' },
+                            2000);
+                    } else {
+                        toastr.error(result.message);
+                    }
+                }
+            });
+            return false;
+        });
+    </script>
+}
+
+<div class="container">
+    <h1 class="well">Dodawanie nowego pacjenta</h1>
+    <div class="col-lg-12 well">
+        <div class="row">
+            <form id="addPatientForm" action="@Url.Action("AddPatient")" method="post">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-4 form-group">
+                            <label>Pierwsze imię</label>
+                            <input type="text" autofocus placeholder="Pierwsze imię" class="form-control" name="firstname" required>
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>Drugie imię</label>
+                            <input type="text" placeholder="Drugie imię" class="form-control" name="secondname">
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>Nazwisko</label>
+                            <input type="text" placeholder="Nazwisko" class="form-control" name="surname" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <label>Ulica</label>
+                            <input type="text" autofocus placeholder="Ulica" class="form-control" name="street" required>
+                        </div>
+                        <div class="col-sm-3 form-group">
+                            <label>Nr domu</label>
+                            <input type="text" placeholder="Nr domu" class="form-control" name="buildingnumber" required>
+                        </div>
+                        <div class="col-sm-3 form-group">
+                            <label>Nr mieszkania</label>
+                            <input type="text" placeholder="Nr mieszkania" class="form-control" name="flatnumber">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 form-group">
+                            <label>Kod pocztowy</label>
+                            <input type="text" autofocus placeholder="Kod pocztowy" class="form-control" name="zipcode" required>
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>Miejscowość</label>
+                            <input type="text" placeholder="Miejscowość" class="form-control" name="city" required>
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>Kraj</label>
+                            @Html.DropDownListFor(m => m.Countries, Model.Countries.Select(f => new SelectListItem
+                            {
+                                Value = f.Id.ToString(),
+                                Text = f.Name
+                            }), new { @class = "form-control", id = "Countries", required = "" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <label>Nr telefonu</label>
+                            <input type="tel" placeholder="Nr telefonu" class="form-control" name="phonenumber" pattern="(?<!\w)(\(?(\+|00)?48\)?)?[ -]?\d{3}[ -]?\d{3}[ -]?\d{3}(?!\w)" title="Podaj poprawny numer telefonu!">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label>Pesel</label>
+                            <input type="text" placeholder="Pesel" class="form-control" name="pesel" required="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <label>Data urodzenia</label>
+                            <input type="text" placeholder="Data urodzenia" class="form-control" name="dateofbirth" id="dateofbirth" required="">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label>Miejsce urodzenia</label>
+                            <input type="text" placeholder="Miejsce urodzenia" class="form-control" name="cityofbirth" required="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <label>Obywatelstwo</label>
+                            @Html.DropDownListFor(m => m.Countries, Model.Countries.Select(f => new SelectListItem
+                            {
+                                Value = f.Id.ToString(),
+                                Text = f.Name
+                            }), new { @class = "form-control", id = "nationality", Name = "nationality", required = "" })
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-lg btn-info">Dodaj pacjenta</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

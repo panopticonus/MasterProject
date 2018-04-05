@@ -47,18 +47,39 @@
                                 Products
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "AccountList" ? "active" : "")" href="@Url.Action("AccountList", "Account")">
-                                <span data-feather="users"></span>
-                                Pracownicy
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "CreateAccount" ? "active" : "")" href="@Url.Action("CreateAccount", "Account")">
-                                <span data-feather="plus-square"></span>
-                                Dodaj użytkownika
-                            </a>
-                        </li>
+                        @if (this.User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "AccountList" ? "active" : "")" href="@Url.Action("AccountList", "Account")">
+                                    <span data-feather="users"></span>
+                                    Pracownicy
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "CreateAccount" ? "active" : "")" href="@Url.Action("CreateAccount", "Account")">
+                                    <span data-feather="plus-square"></span>
+                                    Dodaj użytkownika
+                                </a>
+                            </li>
+                        }
+                        @if (this.User.IsInRole("Nurse") || this.User.IsInRole("Doctor"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "PatientList" ? "active" : "")" href="@Url.Action("PatientList", "Patient")">
+                                    <span data-feather="users"></span>
+                                    Lista pacjentów
+                                </a>
+                            </li>
+                        }
+                        @if (this.User.IsInRole("Nurse"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "AddPatient" ? "active" : "")" href="@Url.Action("AddPatient", "Patient")">
+                                    <span data-feather="plus-square"></span>
+                                    Dodaj pacjenta
+                                </a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link" href="#">
                                 <span data-feather="layers"></span>
