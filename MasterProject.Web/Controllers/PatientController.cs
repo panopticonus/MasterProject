@@ -1,10 +1,10 @@
 ﻿namespace MasterProject.Web.Controllers
 {
-    using System;
-    using System.Web.Mvc;
     using Core.Dto;
     using Core.Interfaces.Repositories;
     using Models;
+    using System;
+    using System.Web.Mvc;
 
     [Authorize]
     public class PatientController : Controller
@@ -22,6 +22,26 @@
         public ActionResult PatientList()
         {
             return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Doctor, Nurse")]
+        public ActionResult PatientListDataTable(FormCollection form)
+        {
+            var orderColumn = Convert.ToInt32(form["order[0][column]"]);
+            var searchFilter = new SearchFilters(form)
+            {
+                OrderBy = $"{typeof(PatientDto).GetProperties()[orderColumn].Name} {form["order[0][dir]"].ToUpper()}"
+            };
+
+            var postRequests = this._repository.GetPatientList(searchFilter);
+
+            return Json(new
+            {
+                postRequests.iTotalRecords,
+                postRequests.iTotalDisplayRecords,
+                postRequests.aaData
+            });
         }
 
         [Authorize(Roles = "Nurse")]
@@ -65,6 +85,12 @@
                 type = result > 0 ? "OK" : "Error",
                 message = result > 0 ? "Poprawnie dodano pacjenta" : "Wystąpił błąd!"
             });
+        }
+
+        [Authorize(Roles = "Doctor, Nurse")]
+        public ActionResult EditPatient(int id)
+        {
+            return View();
         }
     }
 }

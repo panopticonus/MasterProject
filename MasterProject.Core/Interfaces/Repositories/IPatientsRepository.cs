@@ -5,5 +5,6 @@
     public interface IPatientsRepository
     {
         int AddPatient(PatientDto patient);
+        DataTablesObject<PatientDto> GetPatientList(SearchFilters searchFilters);
     }
 }

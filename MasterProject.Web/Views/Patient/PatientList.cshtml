@@ -2,3 +2,90 @@
     ViewBag.Title = "Lista pacjentów";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+@section Scripts{
+    <script>
+        $(document).ready(function() {
+            getPatientList();
+        });
+
+        function getPatientList() {
+            $('#patientlist').DataTable().destroy();
+            var oTable = $('#patientlist').DataTable({
+                "bServerSide": true,
+                "bProcessing": true,
+                "ajax": {
+                    url: '@Url.Action("PatientListDataTable", "Patient")',
+                    type: 'POST'
+                },
+                paging: true,
+                searching: false,
+                ordering: true,
+                bAutoWidth: false,
+                "pageLength": 25,
+                "order": [[0, "desc"]],
+                "columnDefs": [
+                    { "width": "5%", "targets": 0 },
+                    { "width": "10%", "targets": 1 },
+                    { "width": "15%", "targets": 2 },
+                    { "width": "15%", "targets": 3 },
+                    { "width": "30%", "targets": 4 },
+                    { "width": "15%", "targets": 5 },
+                    { "width": "10%", "targets": 6, "orderable": false }
+                ],
+                "columns": [
+                    { "data": "Id" },
+                    { "data": "FirstName" },
+                    { "data": "Surname" },
+                    { "data": "Pesel" },
+                    { "data": "City" },
+                    { "data": "PhoneNumber" },
+                    {
+                        "data": "Id",
+                        render: (data) => {
+                            var url = 'edytuj-pacjenta/' + data;
+                            var element =
+                                '<a class="btn btn-xs btn-blue text-uppercase text-strong text-sm mr-5" href="' +
+                                    url +
+                                    '"> Podgląd pacjenta </a>';
+                            return element;
+                        }
+                    }
+                ],
+                "dom": 'Rlfrtip',
+                "bDestroy": true,
+                "iDisplayLength": 25,
+                "lengthMenu": [[10, 25, 50, 100, 250], [10, 25, 50, 100, 250]]
+            });
+        }
+    </script>
+}
+
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+    <div class="container">
+        <table id="patientlist" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Imię</th>
+                    <th>Nazwisko</th>
+                    <th>Pesel</th>
+                    <th>Miasto</th>
+                    <th>Telefon</th>
+                    <th>Podgląd pacjenta</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>ID</th>
+                    <th>Imię</th>
+                    <th>Nazwisko</th>
+                    <th>Pesel</th>
+                    <th>Miasto</th>
+                    <th>Telefon</th>
+                    <th>Podgląd pacjenta</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</main>

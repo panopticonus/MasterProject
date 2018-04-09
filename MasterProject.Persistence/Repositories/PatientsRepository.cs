@@ -1,10 +1,12 @@
 ﻿namespace MasterProject.Persistence.Repositories
 {
-    using System;
     using Core;
-    using Core.Interfaces.Repositories;
     using Core.Dto;
+    using Core.Interfaces.Repositories;
     using Core.Models;
+    using System;
+    using System.Linq;
+    using System.Linq.Dynamic;
 
     public class PatientsRepository : IPatientsRepository
     {
@@ -54,6 +56,29 @@
             {
                 return -1;
             }
+        }
+
+        public DataTablesObject<PatientDto> GetPatientList(SearchFilters searchFilters)
+        {
+            var patients = (from patient in _context.Patients
+                            select new PatientDto
+                            {
+                                Id = patient.Id,
+                                FirstName = patient.FirstName,
+                                Surname = patient.Surname,
+                                Pesel = patient.Pesel,
+                                City = patient.Address.City,
+                                PhoneNumber = patient.PhoneNumber
+                            }).ToList();
+
+            var outputList = patients.OrderBy(searchFilters.OrderBy).Skip(searchFilters.DisplayStart)
+                .Take(searchFilters.DisplayLength).ToList();
+
+            var postRequests = new DataTablesObject<PatientDto>();
+            postRequests.iTotalRecords = postRequests.iTotalDisplayRecords = patients.Count;
+            postRequests.aaData = outputList;
+
+            return postRequests;
         }
     }
 }

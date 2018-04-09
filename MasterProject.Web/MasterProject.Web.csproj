@@ -201,6 +201,7 @@
     <Content Include="Views\Patient\PatientList.cshtml" />
     <Content Include="Views\Patient\AddPatient.cshtml" />
     <Content Include="Views\Home\ErrorAccessDenied.cshtml" />
+    <Content Include="Views\Patient\EditPatient.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

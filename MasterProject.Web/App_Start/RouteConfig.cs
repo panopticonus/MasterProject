@@ -76,9 +76,21 @@
             );
 
             routes.MapRoute(
+                name: "PatientListDataTable",
+                url: "Patient/PatientListDataTable",
+                defaults: new { controller = "Patient", action = "PatientListDataTable" }
+            );
+
+            routes.MapRoute(
                 name: "AddPatient",
                 url: "dodaj-pacjenta",
                 defaults: new { controller = "Patient", action = "AddPatient" }
+            );
+
+            routes.MapRoute(
+                name: "EditPatient",
+                url: "edytuj-pacjenta/{id}",
+                defaults: new { controller = "Patient", action = "EditPatient", id = "{id}" }
             );
 
             routes.MapRoute(
