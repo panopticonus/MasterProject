@@ -99,6 +99,10 @@
     <Compile Include="Migrations\201803222250024_HeadOfWardForeignKey.Designer.cs">
       <DependentUpon>201803222250024_HeadOfWardForeignKey.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804102112564_FkCountries.cs" />
+    <Compile Include="Migrations\201804102112564_FkCountries.Designer.cs">
+      <DependentUpon>201804102112564_FkCountries.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="HospitalContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -127,6 +131,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803222250024_HeadOfWardForeignKey.resx">
       <DependentUpon>201803222250024_HeadOfWardForeignKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804102112564_FkCountries.resx">
+      <DependentUpon>201804102112564_FkCountries.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

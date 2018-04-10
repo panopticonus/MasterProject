@@ -30,7 +30,7 @@
                 success: function (data) {
                     if (data != null && data.type == 'OK') {
                         toastr.success(data.message);
-                        setTimeout(function () { window.location.href = '/' },
+                        setTimeout(function () { window.location.href = data.url },
                             2000);
                     } else {
                         toastr.error(result.message);

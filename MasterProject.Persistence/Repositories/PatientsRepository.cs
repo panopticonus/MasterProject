@@ -80,5 +80,10 @@
 
             return postRequests;
         }
+
+        public Patients GetPatient(int id)
+        {
+            return _context.Patients.Single(x => x.Id == id);
+        }
     }
 }

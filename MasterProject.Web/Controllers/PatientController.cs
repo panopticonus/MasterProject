@@ -77,20 +77,45 @@
                 NationalityId = Convert.ToInt32(form["nationality"])
             };
 
-            var result = _repository.AddPatient(patient);
+            var patientId = _repository.AddPatient(patient);
 
-//TODO Dodać przekierowanie  
             return Json(new
             {
-                type = result > 0 ? "OK" : "Error",
-                message = result > 0 ? "Poprawnie dodano pacjenta" : "Wystąpił błąd!"
+                type = patientId > 0 ? "OK" : "Error",
+                message = patientId > 0 ? "Poprawnie dodano pacjenta" : "Wystąpił błąd!",
+                url = $"edytuj-pacjenta/{patientId}"
             });
         }
 
         [Authorize(Roles = "Doctor, Nurse")]
         public ActionResult EditPatient(int id)
         {
-            return View();
+            var patient = this._repository.GetPatient(id);
+
+            var countryList = _languagesRepository.GetCountriesList();
+
+            var model = new EditPatientViewModel
+            {
+                Nationalities = countryList,
+                Countries = countryList,
+                BuildingNumber = patient.Address.BuildingNumber,
+                City = patient.Address.City,
+                CityOfBirth = patient.CityOfBirth,
+                DateOfBirth = patient.DateOfBirth,
+                FirstName = patient.FirstName,
+                FlatNumber = patient.Address.FlatNumber,
+                Pesel = patient.Pesel,
+                PhoneNumber = patient.PhoneNumber,
+                SecondName = patient.SecondName,
+                Street = patient.Address.Street,
+                Surname = patient.Surname,
+                ZipCode = patient.Address.ZipCode,
+                Id = patient.Id,
+                CountryName = patient.Address.Country.Name,
+                NationalityName = patient.Nationality.Name
+            };
+
+            return View(model);
         }
     }
 }

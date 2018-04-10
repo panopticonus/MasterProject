@@ -1,0 +1,51 @@
+﻿@model MasterProject.Web.Models.EditPatientViewModel
+
+<div>
+    <br />
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label"><strong>Imię i nazwisko:</strong></label>
+        <div class="col-sm-5">
+            <p class="form-control-plaintext">@Model.FirstName @Model.SecondName @Model.Surname</p>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label"><strong>Pesel:</strong></label>
+        <div class="col-sm-5">
+            <p class="form-control-plaintext">@Model.Pesel</p>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label"><strong>Data urodzenia:</strong></label>
+        <div class="col-sm-5">
+            <p class="form-control-plaintext">@Model.DateOfBirth.ToShortDateString()</p>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label"><strong>Miejsce urodzenia:</strong></label>
+        <div class="col-sm-5">
+            <p class="form-control-plaintext">@Model.CityOfBirth</p>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label"><strong>Obywatelstwo:</strong></label>
+        <div class="col-sm-5">
+            <p class="form-control-plaintext">@Model.NationalityName</p>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label"><strong>Numer telefonu:</strong></label>
+        <div class="col-sm-5">
+            <p class="form-control-plaintext"><a href="tel:@Model.PhoneNumber">@Model.PhoneNumber</a></p>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label"><strong>Adres:</strong></label>
+        <div class="col-sm-5">
+            <p class="form-control-plaintext">
+                @Model.Street @Model.BuildingNumber/@Model.FlatNumber <br />
+                @Model.ZipCode @Model.City <br />
+                @Model.CountryName
+            </p>
+        </div>
+    </div>
+</div>

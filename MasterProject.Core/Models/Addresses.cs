@@ -9,5 +9,6 @@ namespace MasterProject.Core.Models
         public string City { get; set; }
         public string ZipCode { get; set; }
         public int CountryId { get; set; }
+        public virtual Countries Country { get; set; }
     }
 }

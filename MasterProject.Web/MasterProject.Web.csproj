@@ -182,6 +182,7 @@
     </Compile>
     <Compile Include="Models\AddAccountDetailsViewModel.cs" />
     <Compile Include="Models\AddPatientViewModel.cs" />
+    <Compile Include="Models\EditPatientViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -202,6 +203,7 @@
     <Content Include="Views\Patient\AddPatient.cshtml" />
     <Content Include="Views\Home\ErrorAccessDenied.cshtml" />
     <Content Include="Views\Patient\EditPatient.cshtml" />
+    <Content Include="Views\Patient\_PatientData.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

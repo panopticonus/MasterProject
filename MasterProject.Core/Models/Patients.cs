@@ -16,5 +16,6 @@ namespace MasterProject.Core.Models
         public string CityOfBirth { get; set; }
         public string PhoneNumber { get; set; }
         public int NationalityId { get; set; }
+        public virtual Countries Nationality { get; set; }
     }
 }
