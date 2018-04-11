@@ -48,4 +48,91 @@
             </p>
         </div>
     </div>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editDataModal">Edytuj dane</button>
+
+    <div class="modal fade" id="editDataModal" tabindex="-1" role="dialog" aria-labelledby="editDataModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editDataModalLabel">Edycja danych pacjenta</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.FirstName, new { @class = "col-form-label" })
+                            @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control", required = "required" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.SecondName, new { @class = "col-form-label" })
+                            @Html.TextBoxFor(x => x.SecondName, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.Surname, new { @class = "col-form-label" })
+                            @Html.TextBoxFor(x => x.Surname, new { @class = "form-control", required = "required" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.Pesel, new { @class = "col-form-label" })
+                            @Html.TextBoxFor(x => x.Pesel, new { @class = "form-control", required = "required" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.Nationalities, new { @class = "col-form-label" })
+                            @Html.DropDownListFor(x => x.NationalityId, Model.Nationalities.Select(f => new SelectListItem
+                            {
+                                Value = f.Id.ToString(),
+                                Text = f.Name
+                            }), new { @class = "form-control", required = "required" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.PhoneNumber, new { @class = "col-form-label" })
+                            @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", pattern = @"(?<!\w)(\(?(\+|00)?48\)?)?[ -]?\d{3}[ -]?\d{3}[ -]?\d{3}(?!\w)", title = "Podaj poprawny numer telefonu!" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.DateOfBirth, new { @class = "col-form-label" })
+                            @Html.TextBoxFor(x => x.DateOfBirth, "{0:dd/MM/yyyy}", new { @class = "form-control", required = "required", id = "dateofbirth" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.CityOfBirth, new { @class = "col-form-label" })
+                            @Html.TextBoxFor(x => x.CityOfBirth, new { @class = "form-control", required = "required" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.Street, new { @class = "col-form-label" })
+                            @Html.TextBoxFor(x => x.Street, new { @class = "form-control", required = "required" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.BuildingNumber, new { @class = "col-form-label" })
+                            @Html.TextBoxFor(x => x.BuildingNumber, new { @class = "form-control", required = "required" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.FlatNumber, new { @class = "col-form-label" })
+                            @Html.TextBoxFor(x => x.FlatNumber, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.ZipCode, new { @class = "col-form-label" })
+                            @Html.TextBoxFor(x => x.ZipCode, new { @class = "form-control", required = "required" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.City, new { @class = "col-form-label" })
+                            @Html.TextBoxFor(x => x.City, new { @class = "form-control", required = "required" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.Countries, new { @class = "col-form-label" })
+                            @Html.DropDownListFor(x => x.CountryId, Model.Countries.Select(f => new SelectListItem
+                            {
+                                Value = f.Id.ToString(),
+                                Text = f.Name
+                            }), new { @class = "form-control", required = "required" })
+                        </div>
+                        @Html.HiddenFor(x => x.Id)
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Send message</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

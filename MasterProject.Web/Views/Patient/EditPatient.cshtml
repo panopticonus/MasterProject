@@ -4,6 +4,21 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<link href="~/Content/bootstrap-datepicker.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-datepicker.standalone.min.css" rel="stylesheet" />
+
+@section scripts{
+    <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
+    <script src="~/Scripts/locales/bootstrap-datepicker.pl.min.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#dateofbirth').datepicker({
+                language: "pl"
+            });
+        });
+    </script>
+}
 
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
     <div class="container">
@@ -44,13 +59,13 @@
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane fade show active" id="patientdata">
                 @Html.Partial("_PatientData", Model)
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="buzz">
+                bbb
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="references">
+                ccc
+            </div>
         </div>
-        <div role="tabpanel" class="tab-pane fade" id="buzz">
-            bbb
-        </div>
-        <div role="tabpanel" class="tab-pane fade" id="references">
-            ccc
-        </div>
-    </div>
     </div>
 </main>

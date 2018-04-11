@@ -112,7 +112,9 @@
                 ZipCode = patient.Address.ZipCode,
                 Id = patient.Id,
                 CountryName = patient.Address.Country.Name,
-                NationalityName = patient.Nationality.Name
+                NationalityName = patient.Nationality.Name,
+                CountryId = patient.Address.CountryId,
+                NationalityId = patient.NationalityId
             };
 
             return View(model);
