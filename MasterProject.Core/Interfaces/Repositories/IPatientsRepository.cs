@@ -8,5 +8,6 @@
         int AddPatient(PatientDto patient);
         DataTablesObject<PatientDto> GetPatientList(SearchFilters searchFilters);
         Patients GetPatient(int id);
+        bool EditPatient(PatientDto patient);
     }
 }

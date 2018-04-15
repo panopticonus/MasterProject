@@ -94,6 +94,12 @@
             );
 
             routes.MapRoute(
+                name: "EditPatientData",
+                url: "Patient/EditPatientData",
+                defaults: new {controller = "Patient", action = "EditPatientData"}
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "",
                 defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional }

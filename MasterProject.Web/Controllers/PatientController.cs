@@ -119,5 +119,37 @@
 
             return View(model);
         }
+
+        [HttpPost]
+        [Authorize(Roles = "Nurse")]
+        public ActionResult EditPatientData(FormCollection form)
+        {
+            var patient = new PatientDto
+            {
+                Id = Convert.ToInt32(form["Id"]),
+                FirstName = form["FirstName"],
+                SecondName = form["SecondName"],
+                Surname = form["Surname"],
+                Street = form["Street"],
+                BuildingNumber = form["BuildingNumber"],
+                FlatNumber = form["FlatNumber"],
+                ZipCode = form["ZipCode"],
+                City = form["City"],
+                CountryId = Convert.ToInt32(form["CountryId"]),
+                PhoneNumber = form["PhoneNumber"],
+                DateOfBirth = Convert.ToDateTime(form["DateOfBirth"]),
+                CityOfBirth = form["CityOfBirth"],
+                Pesel = form["Pesel"],
+                NationalityId = Convert.ToInt32(form["NationalityId"])
+            };
+
+            var result = _repository.EditPatient(patient);
+
+            return Json(new
+            {
+                type = result ? "OK" : "Error",
+                message = result ? "Poprawnie zapisano dane pacjenta" : "Wystąpił błąd!"
+            });
+        }
     }
 }

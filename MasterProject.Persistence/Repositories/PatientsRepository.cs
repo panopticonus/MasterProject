@@ -85,5 +85,36 @@
         {
             return _context.Patients.Single(x => x.Id == id);
         }
+
+        public bool EditPatient(PatientDto patient)
+        {
+            try
+            {
+                var oldPatient = _context.Patients.Single(x => x.Id == patient.Id);
+
+                oldPatient.Address.BuildingNumber = patient.BuildingNumber;
+                oldPatient.Address.FlatNumber = patient.FlatNumber;
+                oldPatient.Address.City = patient.City;
+                oldPatient.Address.CountryId = patient.CountryId;
+                oldPatient.Address.Street = patient.Street;
+                oldPatient.Address.ZipCode = patient.ZipCode;
+                oldPatient.CityOfBirth = patient.CityOfBirth;
+                oldPatient.DateOfBirth = patient.DateOfBirth;
+                oldPatient.FirstName = patient.FirstName;
+                oldPatient.NationalityId = patient.NationalityId;
+                oldPatient.Pesel = patient.Pesel;
+                oldPatient.PhoneNumber = patient.PhoneNumber;
+                oldPatient.SecondName = patient.SecondName;
+                oldPatient.Surname = patient.Surname;
+
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }

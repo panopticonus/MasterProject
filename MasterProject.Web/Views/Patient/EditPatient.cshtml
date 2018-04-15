@@ -1,6 +1,6 @@
 ﻿@model MasterProject.Web.Models.EditPatientViewModel
 @{
-    ViewBag.Title = "EditPatient";
+    ViewBag.Title = "Dane pacjenta";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -16,6 +16,27 @@
             $('#dateofbirth').datepicker({
                 language: "pl"
             });
+        });
+
+        $("#savePatientDataForm").submit(function (event) {
+            event.preventDefault();
+            $.ajax({
+                url: $(this).attr("action"),
+                data: $(this).serialize(),
+                type: 'POST',
+                async: false,
+                dataType: 'json',
+                success: function (data) {
+                    if (data != null && data.type == 'OK') {
+                        toastr.success(data.message);
+                        setTimeout(function () { window.location.reload() },
+                            2000);
+                    } else {
+                        toastr.error(result.message);
+                    }
+                }
+            });
+            return false;
         });
     </script>
 }

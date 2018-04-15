@@ -48,7 +48,10 @@
             </p>
         </div>
     </div>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editDataModal">Edytuj dane</button>
+    @if (this.User.IsInRole("Nurse"))
+    {
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editDataModal">Edytuj dane</button>
+    }
 
     <div class="modal fade" id="editDataModal" tabindex="-1" role="dialog" aria-labelledby="editDataModal" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -59,7 +62,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form>
+                <form id="savePatientDataForm" action="@Url.Action("EditPatientData","Patient")">
                     <div class="modal-body">
                         <div class="form-group">
                             @Html.LabelFor(x => x.FirstName, new { @class = "col-form-label" })
@@ -128,8 +131,8 @@
                         @Html.HiddenFor(x => x.Id)
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Send message</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+                        <button type="submit" class="btn btn-primary">Zapisz dane</button>
                     </div>
                 </form>
             </div>
