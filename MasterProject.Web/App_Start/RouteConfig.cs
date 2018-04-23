@@ -28,18 +28,6 @@
             );
 
             routes.MapRoute(
-                name: "ReadData",
-                url: "Home/ReadData",
-                defaults: new { controller = "Home", action = "ReadData" }
-            );
-
-            routes.MapRoute(
-                name: "EkgMeasurement",
-                url: "pomiar-ekg",
-                defaults: new { controller = "Home", action = "EkgMeasurement" }
-            );
-
-            routes.MapRoute(
                 name: "ErrorAccessDenied",
                 url: "Home/ErrorAccessDenied",
                 defaults: new { controller = "Home", action = "ErrorAccessDenied" }
@@ -97,6 +85,24 @@
                 name: "EditPatientData",
                 url: "Patient/EditPatientData",
                 defaults: new {controller = "Patient", action = "EditPatientData"}
+            );
+
+            routes.MapRoute(
+                name: "ReadData",
+                url: "Home/ReadData/{deviceTypeId}",
+                defaults: new { controller = "Patient", action = "ReadData", deviceTypeId = "{deviceTypeId}" }
+            );
+
+            routes.MapRoute(
+                name: "EkgMeasurement",
+                url: "pomiar-ekg/{id}",
+                defaults: new { controller = "Patient", action = "EkgMeasurement", id = "{id}" }
+            );
+
+            routes.MapRoute(
+                name: "TemperatureMeasurement",
+                url: "pomiar-temperatury/{id}",
+                defaults: new { controller = "Patient", action = "TemperatureMeasurement", id = "{id}" }
             );
 
             routes.MapRoute(

@@ -1,6 +1,8 @@
 ﻿namespace MasterProject.Web.Controllers
 {
     using Core.Dto;
+    using Core.Enums;
+    using Core.Interfaces.Managers;
     using Core.Interfaces.Repositories;
     using Models;
     using System;
@@ -11,11 +13,13 @@
     {
         private readonly IPatientsRepository _repository;
         private readonly ILanguagesRepository _languagesRepository;
+        private readonly IHomeManager _homeManager;
 
-        public PatientController(IPatientsRepository repository, ILanguagesRepository languagesRepository)
+        public PatientController(IPatientsRepository repository, ILanguagesRepository languagesRepository, IHomeManager homeManager)
         {
             this._repository = repository;
             this._languagesRepository = languagesRepository;
+            this._homeManager = homeManager;
         }
 
         [Authorize(Roles = "Doctor, Nurse")]
@@ -149,6 +153,46 @@
             {
                 type = result ? "OK" : "Error",
                 message = result ? "Poprawnie zapisano dane pacjenta" : "Wystąpił błąd!"
+            });
+        }
+
+        [Authorize(Roles = "Doctor, Nurse")]
+        public ActionResult EkgMeasurement(int id)
+        {
+            var patient = this._repository.GetPatient(id);
+
+            var model = new MeasurementViewModel
+            {
+                Id = id,
+                Name = $"{patient.FirstName} {patient.Surname}",
+                Age = DateTime.Now.Year - patient.DateOfBirth.Year
+            };
+
+            return View(model);
+        }
+
+        [Authorize(Roles = "Doctor, Nurse")]
+        public ActionResult TemperatureMeasurement(int id)
+        {
+            var patient = this._repository.GetPatient(id);
+
+            var model = new MeasurementViewModel
+            {
+                Id = id,
+                Name = $"{patient.FirstName} {patient.Surname}",
+                Age = DateTime.Now.Year - patient.DateOfBirth.Year
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Doctor, Nurse")]
+        public JsonResult ReadData(int deviceTypeId)
+        {
+            return Json(new
+            {
+                data = _homeManager.GetData(deviceTypeId)
             });
         }
     }

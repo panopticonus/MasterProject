@@ -78,9 +78,9 @@
                     Bieżąca diagnostyka
                 </a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Submenu 1-1</a>
-                    <a class="dropdown-item" href="#">Submenu 1-2</a>
-                    <a class="dropdown-item" href="#">Submenu 1-3</a>
+                    <a class="dropdown-item" href="@Url.Action("EkgMeasurement", "Patient", new { id = Model.Id })">Pomiar EKG</a>
+                    <a class="dropdown-item" href="@Url.Action("TemperatureMeasurement", "Patient", new { id = Model.Id })">Pomiar temperatury</a>
+                    <a class="dropdown-item" href="#">Pomiar wilgotności</a>
                 </div>
             </li>
         </ul>

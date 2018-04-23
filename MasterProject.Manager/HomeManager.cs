@@ -19,6 +19,7 @@
                 switch (deviceId)
                 {
                     case (int)DeviceTypes.Temperature:
+                        stringUrl = "http://192.168.0.102:8080/temperature";
                         break;
                     case (int)DeviceTypes.Humidity:
                         break;
