@@ -1,12 +1,11 @@
 ﻿namespace MasterProject.Manager
 {
     using Core.Dto;
+    using Core.Enums;
     using Core.Interfaces.Managers;
     using System;
-    using System.Globalization;
     using System.Net;
     using System.Text;
-    using Core.Enums;
 
     public class HomeManager : IHomeManager
     {
