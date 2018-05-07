@@ -206,6 +206,7 @@
     <Content Include="Views\Patient\EditPatient.cshtml" />
     <Content Include="Views\Patient\_PatientData.cshtml" />
     <Content Include="Views\Patient\TemperatureMeasurement.cshtml" />
+    <Content Include="Views\Patient\HumidityMeasurement.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

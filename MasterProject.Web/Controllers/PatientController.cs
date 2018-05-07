@@ -186,6 +186,21 @@
             return View(model);
         }
 
+        [Authorize(Roles = "Doctor, Nurse")]
+        public ActionResult HumidityMeasurement(int id)
+        {
+            var patient = this._repository.GetPatient(id);
+
+            var model = new MeasurementViewModel
+            {
+                Id = id,
+                Name = $"{patient.FirstName} {patient.Surname}",
+                Age = DateTime.Now.Year - patient.DateOfBirth.Year
+            };
+
+            return View(model);
+        }
+
         [HttpPost]
         [Authorize(Roles = "Doctor, Nurse")]
         public JsonResult ReadData(int deviceTypeId)

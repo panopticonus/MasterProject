@@ -80,7 +80,7 @@
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="@Url.Action("EkgMeasurement", "Patient", new { id = Model.Id })">Pomiar EKG</a>
                     <a class="dropdown-item" href="@Url.Action("TemperatureMeasurement", "Patient", new { id = Model.Id })">Pomiar temperatury</a>
-                    <a class="dropdown-item" href="#">Pomiar wilgotności</a>
+                    <a class="dropdown-item" href="@Url.Action("HumidityMeasurement", "Patient", new { id = Model.Id })">Pomiar wilgotności</a>
                 </div>
             </li>
         </ul>

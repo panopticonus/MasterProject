@@ -72,11 +72,21 @@
                         verticalAlign: "bottom"
                     }
                 ],
+                axisX: {
+                    title: "czas",
+                    valueFormatString: "HH:mm:ss",
+                    labelAngle: -20
+                },
+                axisY: {
+                    title: "temperatura [°C]"
+                },
                 data: [
                     {
                         type: "spline",
                         color: "black",
-                        dataPoints: dps
+                        dataPoints: dps,
+                        xValueType: "dateTime",
+                        xValueFormatString: "HH:mm:ss"
                     }
                 ]
             });
@@ -88,19 +98,22 @@
 
         var updateChart = function() {
             var yVal = 0;
+            var xVal = 0;
             $.ajax({
                 type: 'POST',
-                url: '@Url.Action("ReadData", new { deviceTypeId = (int)DeviceTypes.Temperature })',
+                url: '@Url.Action("ReadData", new {deviceTypeId = (int) DeviceTypes.Temperature})',
                 async: false,
                 dataType: 'json',
                 success: function(result) {
                     if (result != null) {
+                        xVal = result.data.X;
                         yVal = result.data.Y;
                     }
                 }
             });
 
             dps.push({
+                x: new Date(xVal),
                 y: yVal
             });
 
@@ -113,7 +126,7 @@
         }
 
         function start() {
-            interval = setInterval(function() { updateChart() }, 5000);
+            interval = setInterval(function() { updateChart() }, 1000);
         }
 
         function reset() {

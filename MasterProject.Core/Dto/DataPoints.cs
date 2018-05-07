@@ -6,14 +6,14 @@
     [DataContract]
     public class DataPoint
     {
-        public DataPoint(DateTime x, double y)
+        public DataPoint(string x, double y)
         {
             this.X = x;
             this.Y = y;
         }
 
         [DataMember(Name = "x")]
-        public DateTime? X = null;
+        public string X = null;
 
         [DataMember(Name = "y")]
         public double? Y = null;

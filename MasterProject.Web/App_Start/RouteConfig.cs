@@ -106,6 +106,12 @@
             );
 
             routes.MapRoute(
+                name: "HumidityMeasurement",
+                url: "pomiar-wilgotnosci/{id}",
+                defaults: new { controller = "Patient", action = "HumidityMeasurement", id = "{id}" }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "",
                 defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional }
