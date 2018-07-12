@@ -5,5 +5,6 @@
     public interface IHomeManager
     {
         DataPoint GetData(int deviceId);
+        void SaveData();
     }
 }

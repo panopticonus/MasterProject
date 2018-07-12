@@ -9,6 +9,13 @@
             getAccountList();
         });
 
+        $(document).on("click",
+            ".editAccountButton",
+            function() {
+                var userId = $(this).data('id');
+                $(".modal-body .userId").val(userId);
+            });
+
         function getAccountList() {
             $('#accountlist').DataTable().destroy();
             var oTable = $('#accountlist').DataTable({
@@ -40,15 +47,21 @@
                     { "data": "Surname" },
                     { "data": "WardName" },
                     { "data": "PhoneNumber" },
-//TODO Dodać edycję
                     {
-                        "data": "Id",
-                        render: (data) => {
-                            var url = 'edytuj-newsa/' + data;
-                            var element =
-                                '<a class="btn btn-xs btn-blue text-uppercase text-strong text-sm mr-5" href="' +
-                                    url +
-                                    '"> Edytuj newsa </a>';
+                        "data": "IsActive",
+                        render: (data, type, row) => {
+                            var element;
+                            if (data === true) {
+                                element =
+                                    '<button type="button" data-id="' +
+                                    row.UserId +
+                                    '" class="btn btn-danger editAccountButton" data-toggle="modal" data-target="#deactivateAccountModal">Deaktywuj konto</button>';
+                            } else {
+                                element =
+                                    '<button type="button" data-id="' +
+                                    row.UserId +
+                                    '" class="btn btn-success editAccountButton" data-toggle="modal" data-target="#activateAccountModal">Aktywuj konto</button>';
+                            }
                             return element;
                         }
                     }
@@ -57,6 +70,49 @@
                 "bDestroy": true,
                 "iDisplayLength": 25,
                 "lengthMenu": [[10, 25, 50, 100, 250], [10, 25, 50, 100, 250]]
+            });
+
+            $('#deactivateAccountModal').on('click', '#deactivate-user', function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: '/edytuj-konto',
+                    type: "POST",
+                    dataType: "json",
+                    data: { isActive: false, id: $('#deactivateUserId').val() },
+                    success: function (result) {
+                        if (result != null && result.type === "OK") {
+                            toastr.success(result.message);
+                            location.reload();
+                        } else
+                            toastr.error(result.message);
+                    },
+                    error: function (result) {
+                        toastr.error(result.Message);
+                    }
+                });
+                $('#deactivateAccountModal').modal('hide');
+            });
+
+            $('#activateAccountModal').on('click', '#activate-user', function (e) {
+                e.preventDefault();
+                console.log($('#activateUserId').val());
+                $.ajax({
+                    url: '/edytuj-konto',
+                    type: "POST",
+                    dataType: "json",
+                    data: { isActive: true, id: $('#activateUserId').val() },
+                    success: function (result) {
+                        if (result != null && result.type === "OK") {
+                            toastr.success(result.message);
+                            location.reload();
+                        } else
+                            toastr.error(result.message);
+                    },
+                    error: function (result) {
+                        toastr.error(result.Message);
+                    }
+                });
+                $('#activateAccountModal').modal('hide');
             });
         }
     </script>
@@ -73,7 +129,7 @@
                     <th>Nazwisko</th>
                     <th>Oddział</th>
                     <th>Telefon</th>
-                    <th>Podgląd konta</th>
+                    <th>Edycja konta</th>
                 </tr>
             </thead>
             <tfoot>
@@ -84,9 +140,45 @@
                     <th>Nazwisko</th>
                     <th>Oddział</th>
                     <th>Telefon</th>
-                    <th>Podgląd konta</th>
+                    <th>Edycja konta</th>
                 </tr>
             </tfoot>
         </table>
     </div>
 </main>
+
+<div class="modal fade" id="activateAccountModal" tabindex="-1" role="dialog" aria-labelledby="activateAccountModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title"><strong>Aktywacja</strong> użytkownika</h3>
+            </div>
+            <div class="modal-body">
+                Czy na pewno chcesz aktywować konto wybranego użytkownika?
+                <input type="hidden" class="userId" name="userId" id="activateUserId" value="" />
+            </div>
+            <div class="modal-footer">
+                <button id="activate-user" class="btn btn-success">Aktywuj</button>
+                <button class="btn btn-danger" data-dismiss="modal">Anuluj</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deactivateAccountModal" tabindex="-1" role="dialog" aria-labelledby="deactivateAccountModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title"><strong>Deaktywacja</strong> użytkownika</h3>
+            </div>
+            <div class="modal-body">
+                Czy na pewno chcesz deaktywować konto wybranego użytkownika?
+                <input type="hidden" class="userId" name="userId" id="deactivateUserId" value="" />
+            </div>
+            <div class="modal-footer">
+                <button id="deactivate-user" class="btn btn-success">Deaktywuj</button>
+                <button class="btn btn-danger" data-dismiss="modal">Anuluj</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -9,5 +9,6 @@ namespace MasterProject.Core.Interfaces.Repositories
         bool AddAccountDetails(AccountDto account);
         int GetUserRole(string id);
         DataTablesObject<AccountDto> GetAccountList(SearchFilters searchFilter);
+        bool EditAccount(bool idActive, string id);
     }
 }

@@ -58,6 +58,12 @@
             );
 
             routes.MapRoute(
+                name: "EditAccount",
+                url: "edytuj-konto",
+                defaults: new { controller = "Account", action = "EditAccount", isActive = "{isActive}", id = "{id}" }
+            );
+
+            routes.MapRoute(
                 name: "PatientList",
                 url: "lista-pacjentow",
                 defaults: new { controller = "Patient", action = "PatientList" }
@@ -109,6 +115,12 @@
                 name: "HumidityMeasurement",
                 url: "pomiar-wilgotnosci/{id}",
                 defaults: new { controller = "Patient", action = "HumidityMeasurement", id = "{id}" }
+            );
+
+            routes.MapRoute(
+                name: "SaveData",
+                url: "zapisz-dane",
+                defaults: new { controller = "Patient", action = "SaveData" }
             );
 
             routes.MapRoute(

@@ -205,10 +205,36 @@
         [Authorize(Roles = "Doctor, Nurse")]
         public JsonResult ReadData(int deviceTypeId)
         {
-            return Json(new
+            try
             {
-                data = _homeManager.GetData(deviceTypeId)
-            });
+                return Json(new
+                {
+                    data = _homeManager.GetData(deviceTypeId)
+                });
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Doctor, Nurse")]
+        public JsonResult SaveData()
+        {
+            try
+            {
+                _homeManager.SaveData();
+                return Json(new
+                {
+                    type = "OK",
+                    message = "Poprawnie zapisano dane"
+                });
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

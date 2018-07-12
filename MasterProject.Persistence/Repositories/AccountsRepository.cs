@@ -168,7 +168,9 @@
                                Name = doctor.FirstName,
                                Surname = doctor.Surname,
                                WardName = doctor.Ward.Name,
-                               PhoneNumber = doctor.PhoneNumber
+                               PhoneNumber = doctor.PhoneNumber,
+                               IsActive = doctor.User.IsActive,
+                               UserId = doctor.User.Id
                            }).ToList();
 
             var nurses = (from nurse in _context.Nurses
@@ -178,7 +180,9 @@
                               Name = nurse.FirstName,
                               Surname = nurse.Surname,
                               WardName = nurse.Ward.Name,
-                              PhoneNumber = nurse.PhoneNumber
+                              PhoneNumber = nurse.PhoneNumber,
+                              IsActive = nurse.User.IsActive,
+                              UserId = nurse.User.Id
                           }).ToList();
 
             accountList.AddRange(doctors);
@@ -195,6 +199,26 @@
             postRequests.aaData = outputList;
 
             return postRequests;
+        }
+
+        public bool EditAccount(bool isActive, string id)
+        {
+            try
+            {
+                var context = new HospitalContext();
+                var userManager = new UserManager<Users>(new UserStore<Users>(context));
+
+                var user = userManager.FindById(id);
+
+                user.IsActive = isActive;
+                context.SaveChanges();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }

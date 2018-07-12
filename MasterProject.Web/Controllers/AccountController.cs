@@ -170,6 +170,18 @@
             });
         }
 
+        [Authorize(Roles = "Admin")]
+        public JsonResult EditAccount(bool isActive, string id)
+        {
+            var result = _repository.EditAccount(isActive, id);
+
+            return Json(new
+            {
+                type = result ? "OK" : "Error",
+                message = result ? $"Poprawnie {(isActive ? "aktywowano" : "deaktywowano")} użytkownika" : "Wystąpił błąd!"
+            }, JsonRequestBehavior.AllowGet);
+        }
+
         private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
     }
 }

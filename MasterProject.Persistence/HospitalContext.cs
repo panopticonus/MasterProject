@@ -25,6 +25,7 @@ namespace MasterProject.Persistence
         public virtual DbSet<Nurses> Nurses { get; set; }
         public virtual DbSet<Specialties> Specialties { get; set; }
         public virtual DbSet<Roles> ExpandedRoles { get; set; }
+        public virtual DbSet<ErrorLogs> ErrorLogs { get; set; }
 
         public override int SaveChanges()
         {
@@ -61,6 +62,7 @@ namespace MasterProject.Persistence
             modelBuilder.Configurations.Add(new DoctorsConfiguration());
             modelBuilder.Configurations.Add(new NursesConfiguration());
             modelBuilder.Configurations.Add(new SpecialtiesConfiguration());
+            modelBuilder.Configurations.Add(new ErrorLogsConfiguration());
             
             base.OnModelCreating(modelBuilder);
         }

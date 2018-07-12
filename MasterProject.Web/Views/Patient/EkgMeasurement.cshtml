@@ -44,12 +44,15 @@
 </main>
 
 @section scripts{
-    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="~/Scripts/canvasjs.min.js"></script>
 
     <script type="text/javascript">
         var xAxisStripLinesArray = [];
         var yAxisStripLinesArray = [];
         var dps = [];
+        var interval;
+        var dataLength = 20;
+        var updateInterval = 10;
         var chart = new CanvasJS.Chart("chartContainer",
             {
                 zoomEnabled: true,
@@ -73,33 +76,39 @@
                     }
                 ],
                 axisY: {
-                    stripLines: yAxisStripLinesArray,
-                    gridThickness: 2,
-                    gridColor: "#DC74A5",
-                    lineColor: "#DC74A5",
-                    tickColor: "#DC74A5",
-                    labelFontColor: "#DC74A5"
+                    //stripLines: yAxisStripLinesArray,
+                    //gridThickness: 2,
+                    //gridColor: "#DC74A5",
+                    //lineColor: "#DC74A5",
+                    //tickColor: "#DC74A5",
+                    //labelFontColor: "#DC74A5",
+                    includeZero: false,
+                    title: "EKG [mV]"
                 },
                 axisX: {
-                    stripLines: xAxisStripLinesArray,
-                    gridThickness: 2,
-                    gridColor: "#DC74A5",
-                    lineColor: "#DC74A5",
-                    tickColor: "#DC74A5",
-                    labelFontColor: "#DC74A5"
+                    //stripLines: xAxisStripLinesArray,
+                    //gridThickness: 2,
+                    //gridColor: "#DC74A5",
+                    //lineColor: "#DC74A5",
+                    //tickColor: "#DC74A5",
+                    //labelFontColor: "#DC74A5",
+                    title: "czas",
+                    valueFormatString: "HH:mm:ss",
+                    labelAngle: -20
                 },
                 data: [
                     {
-                        type: "spline",
+                        type: "line",
                         color: "black",
-                        dataPoints: dps
+                        dataPoints: dps,
+                        xValueType: "dateTime",
+                        xValueFormatString: "HH:mm:ss"
                     }
                 ]
             });
-        var interval;
 
         window.onload = function() {
-            addStripLines();
+            //addStripLines();
             chart.render();
         };
 
@@ -116,6 +125,8 @@
 
         var updateChart = function() {
             var yVal = 0;
+            var xVal = 0;
+            var error = false;
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("ReadData", new { deviceTypeId = (int)DeviceTypes.Ekg })',
@@ -124,13 +135,27 @@
                 success: function(result) {
                     if (result != null) {
                         yVal = result.data.Y;
+                        xVal = result.data.X;
                     }
+                },
+                error: function () {
+                    toastr.error('Nie można połączyć się z serwerem zdalnym');
+                    stop();
+                    error = true;
                 }
             });
+            
+            if (error)
+                return;
 
             dps.push({
+                x: new Date(xVal),
                 y: yVal
             });
+
+            if (dps.length > dataLength) {
+                dps.shift();
+            }
 
             chart.render();
         };
@@ -141,7 +166,7 @@
         }
 
         function start() {
-            interval = setInterval(function() { updateChart() }, 10);
+            interval = setInterval(function () { updateChart() }, updateInterval);
         }
 
         function reset() {

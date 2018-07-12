@@ -161,6 +161,7 @@
     <Content Include="Images\hospital.svg" />
     <Content Include="Scripts\bootstrap-datepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\canvasjs.min.js" />
     <Content Include="Scripts\datatables.min.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.pl.min.js" />

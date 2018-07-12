@@ -66,6 +66,7 @@
     <Compile Include="IHospitalContext.cs" />
     <Compile Include="Interfaces\Managers\IHomeManager.cs" />
     <Compile Include="Interfaces\Repositories\IAccountsRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IErrorLogsRepository.cs" />
     <Compile Include="Interfaces\Repositories\ILanguagesRepository.cs" />
     <Compile Include="Interfaces\Repositories\IPatientsRepository.cs" />
     <Compile Include="Interfaces\Repositories\ISpecialtiesRepository.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Models\Addresses.cs" />
     <Compile Include="Models\Countries.cs" />
     <Compile Include="Models\Doctors.cs" />
+    <Compile Include="Models\ErrorLogs.cs" />
     <Compile Include="Models\HospitalStays.cs" />
     <Compile Include="Models\Nurses.cs" />
     <Compile Include="Models\Patients.cs" />
