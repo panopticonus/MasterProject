@@ -84,6 +84,7 @@
     <Compile Include="EntityConfiguration\DoctorsConfiguration.cs" />
     <Compile Include="EntityConfiguration\ErrorLogsConfiguration.cs" />
     <Compile Include="EntityConfiguration\NursesConfiguration.cs" />
+    <Compile Include="EntityConfiguration\PatientNotesConfiguration.cs" />
     <Compile Include="EntityConfiguration\PatientsConfiguration.cs" />
     <Compile Include="EntityConfiguration\SpecialtiesConfiguration.cs" />
     <Compile Include="EntityConfiguration\UsersConfiguration.cs" />
@@ -111,6 +112,10 @@
     <Compile Include="Migrations\201807101643099_AddUsersFieldIsActive.cs" />
     <Compile Include="Migrations\201807101643099_AddUsersFieldIsActive.Designer.cs">
       <DependentUpon>201807101643099_AddUsersFieldIsActive.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807122014111_AddPatientNotes.cs" />
+    <Compile Include="Migrations\201807122014111_AddPatientNotes.Designer.cs">
+      <DependentUpon>201807122014111_AddPatientNotes.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="HospitalContext.cs" />
@@ -150,6 +155,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807101643099_AddUsersFieldIsActive.resx">
       <DependentUpon>201807101643099_AddUsersFieldIsActive.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807122014111_AddPatientNotes.resx">
+      <DependentUpon>201807122014111_AddPatientNotes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

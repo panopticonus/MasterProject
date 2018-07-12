@@ -16,6 +16,7 @@
         DbSet<Specialties> Specialties { get; set; }
         DbSet<Roles> ExpandedRoles { get; set; }
         DbSet<ErrorLogs> ErrorLogs { get; set; }
+        DbSet<PatientNotes> PatientNotes { get; set; }
         int SaveChanges();
     }
 }

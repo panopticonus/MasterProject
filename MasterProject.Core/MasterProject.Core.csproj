@@ -77,6 +77,7 @@
     <Compile Include="Models\ErrorLogs.cs" />
     <Compile Include="Models\HospitalStays.cs" />
     <Compile Include="Models\Nurses.cs" />
+    <Compile Include="Models\PatientNotes.cs" />
     <Compile Include="Models\Patients.cs" />
     <Compile Include="Models\Roles.cs" />
     <Compile Include="Models\Specialties.cs" />

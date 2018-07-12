@@ -38,6 +38,28 @@
             });
             return false;
         });
+
+        $("#addNoteForm").submit(function (event) {
+            event.preventDefault();
+            $.ajax({
+                url: $(this).attr("action"),
+                data: { patientId: $('#patientId').val(), content: $('#noteText').val() },
+                type: 'POST',
+                async: false,
+                dataType: 'json',
+                success: function (data) {
+                    if (data != null && data.type == 'OK') {
+                        toastr.success(data.message);
+                        setTimeout(function () { window.location.reload() },
+                            2000);
+                    }
+                },
+                error: function () {
+                    toastr.error('Wystąpił błąd!');
+                }
+            });
+            return false;
+        });
     </script>
 }
 
@@ -67,7 +89,13 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#buzz" role="tab" data-toggle="tab">
+                <a class="nav-link" href="#documents" role="tab" data-toggle="tab">
+                    <span data-feather="archive"></span>
+                    Dokumenty
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#notes" role="tab" data-toggle="tab">
                     <span data-feather="file-text"></span>
                     Notatki
                 </a>
@@ -90,11 +118,40 @@
             <div role="tabpanel" class="tab-pane fade show active" id="patientdata">
                 @Html.Partial("_PatientData", Model)
             </div>
-            <div role="tabpanel" class="tab-pane fade" id="buzz">
-                bbb
+            <div role="tabpanel" class="tab-pane fade" id="notes">
+                <br>
+                <button data-toggle="modal" data-target="#addNoteModal" class="btn btn-primary">
+                    <span data-feather="file-plus"></span>
+                    Dodaj notatkę
+                </button>
             </div>
-            <div role="tabpanel" class="tab-pane fade" id="references">
+            <div role="tabpanel" class="tab-pane fade" id="documents">
                 ccc
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addNoteModal" role="dialog" aria-labelledby="addNoteModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title"><strong>Dodawanie</strong> notatki</h3>
+                </div>
+                <form id="addNoteForm" action="@Url.Action("AddNote","Patient")">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="col-form-label" for="noteText">
+                                <strong>Treść notatki:</strong>
+                            </label>
+                            <textarea class="form-control" autofocus required="required" style="height: 100px;" id="noteText"></textarea>
+                        </div>
+                        <input type="hidden" name="patientId" id="patientId" value="@Model.Id" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" id="addNote" class="btn btn-success">Dodaj</button>
+                        <button class="btn btn-danger" data-dismiss="modal">Anuluj</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

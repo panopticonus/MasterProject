@@ -94,6 +94,12 @@
             );
 
             routes.MapRoute(
+                name: "AddPatientNote",
+                url: "dodaj-notatke",
+                defaults: new { controller = "Patient", action = "AddNote" }
+            );
+
+            routes.MapRoute(
                 name: "ReadData",
                 url: "Home/ReadData/{deviceTypeId}",
                 defaults: new { controller = "Patient", action = "ReadData", deviceTypeId = "{deviceTypeId}" }

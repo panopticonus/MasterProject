@@ -7,6 +7,7 @@
     using Models;
     using System;
     using System.Web.Mvc;
+    using Microsoft.AspNet.Identity;
 
     [Authorize]
     public class PatientController : Controller
@@ -229,6 +230,30 @@
                 {
                     type = "OK",
                     message = "Poprawnie zapisano dane"
+                });
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Doctor, Nurse")]
+        public JsonResult AddNote(FormCollection form)
+        {
+            try
+            {
+                var content = form["content"];
+                var patientId = int.Parse(form["patientId"]);
+                var userId = User.Identity.GetUserId();
+
+                this._repository.AddNote(content, patientId, userId);
+
+                return Json(new
+                {
+                    type = "OK",
+                    message = "Poprawnie dodano notatkę"
                 });
             }
             catch (Exception ex)

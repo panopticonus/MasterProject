@@ -116,5 +116,19 @@
                 return false;
             }
         }
+
+        public void AddNote(string content, int patientId, string userId)
+        {
+            var patientNote = new PatientNotes
+            {
+                Content = content,
+                CreateDateTime = DateTime.Now,
+                PatientId = patientId,
+                UserId = userId
+            };
+
+            _context.PatientNotes.Add(patientNote);
+            _context.SaveChanges();
+        }
     }
 }
