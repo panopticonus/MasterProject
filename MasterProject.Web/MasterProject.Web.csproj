@@ -163,6 +163,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\canvasjs.min.js" />
     <Content Include="Scripts\datatables.min.js" />
+    <Content Include="Scripts\feather.min.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.pl.min.js" />
     <Content Include="Scripts\popper.min.js" />

@@ -11,5 +11,6 @@
         bool EditPatient(PatientDto patient);
         void AddNote(string content, int patientId, string userId);
         System.Collections.Generic.List<PatientNotesDto> GetPatientNotes(int id);
+        void AddDocument(string fileName, int patientId, string userId);
     }
 }

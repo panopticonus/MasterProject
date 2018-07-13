@@ -58,6 +58,7 @@
     <Compile Include="Dto\CountryHeaderDto.cs" />
     <Compile Include="Dto\DataPoints.cs" />
     <Compile Include="Dto\DataTablesObject.cs" />
+    <Compile Include="Dto\PatientDocumentsDto.cs" />
     <Compile Include="Dto\PatientDto.cs" />
     <Compile Include="Dto\PatientNotestDto.cs" />
     <Compile Include="Dto\SearchFilters.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="Enums\Specialties.cs" />
     <Compile Include="IHospitalContext.cs" />
     <Compile Include="Interfaces\Managers\IHomeManager.cs" />
+    <Compile Include="Interfaces\Managers\IPatientManager.cs" />
     <Compile Include="Interfaces\Repositories\IAccountsRepository.cs" />
     <Compile Include="Interfaces\Repositories\IErrorLogsRepository.cs" />
     <Compile Include="Interfaces\Repositories\ILanguagesRepository.cs" />
@@ -78,6 +80,7 @@
     <Compile Include="Models\ErrorLogs.cs" />
     <Compile Include="Models\HospitalStays.cs" />
     <Compile Include="Models\Nurses.cs" />
+    <Compile Include="Models\PatientDocuments.cs" />
     <Compile Include="Models\PatientNotes.cs" />
     <Compile Include="Models\Patients.cs" />
     <Compile Include="Models\Roles.cs" />

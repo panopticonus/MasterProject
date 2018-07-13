@@ -32,7 +32,13 @@
                 url: "Home/ErrorAccessDenied",
                 defaults: new { controller = "Home", action = "ErrorAccessDenied" }
             );
-            
+
+            routes.MapRoute(
+                name: "GetPdf",
+                url: "Home/GetPdf",
+                defaults: new { controller = "Home", action = "GetPdf" }
+            );
+
             routes.MapRoute(
                 name: "Logout",
                 url: "wylogowanie",
@@ -97,6 +103,12 @@
                 name: "AddPatientNote",
                 url: "dodaj-notatke",
                 defaults: new { controller = "Patient", action = "AddNote" }
+            );
+
+            routes.MapRoute(
+                name: "AddPatientDocument",
+                url: "dodaj-dokument",
+                defaults: new { controller = "Patient", action = "AddDocument" }
             );
 
             routes.MapRoute(

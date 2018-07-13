@@ -13,6 +13,11 @@
         public ActionResult ErrorAccessDenied()
         {
             return View();
-        }   
+        }
+
+        public ActionResult GetPdf(string fileName)
+        {
+            return File(fileName, "application/pdf");
+        }
     }
 }

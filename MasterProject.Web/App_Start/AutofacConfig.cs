@@ -20,6 +20,7 @@
                 .Where(t => t.Name.EndsWith("Repository"))
                 .AsImplementedInterfaces();
             builder.RegisterType<HomeManager>().As<IHomeManager>().SingleInstance();
+            builder.RegisterType<PatientManager>().As<IPatientManager>().SingleInstance();
             builder.RegisterFilterProvider();
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));

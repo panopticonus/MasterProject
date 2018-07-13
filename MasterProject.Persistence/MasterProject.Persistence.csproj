@@ -84,6 +84,7 @@
     <Compile Include="EntityConfiguration\DoctorsConfiguration.cs" />
     <Compile Include="EntityConfiguration\ErrorLogsConfiguration.cs" />
     <Compile Include="EntityConfiguration\NursesConfiguration.cs" />
+    <Compile Include="EntityConfiguration\PatientDocumentsConfiguration.cs" />
     <Compile Include="EntityConfiguration\PatientNotesConfiguration.cs" />
     <Compile Include="EntityConfiguration\PatientsConfiguration.cs" />
     <Compile Include="EntityConfiguration\SpecialtiesConfiguration.cs" />
@@ -116,6 +117,10 @@
     <Compile Include="Migrations\201807122014111_AddPatientNotes.cs" />
     <Compile Include="Migrations\201807122014111_AddPatientNotes.Designer.cs">
       <DependentUpon>201807122014111_AddPatientNotes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807131338138_AddPatientDocuments.cs" />
+    <Compile Include="Migrations\201807131338138_AddPatientDocuments.Designer.cs">
+      <DependentUpon>201807131338138_AddPatientDocuments.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="HospitalContext.cs" />
@@ -158,6 +163,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807122014111_AddPatientNotes.resx">
       <DependentUpon>201807122014111_AddPatientNotes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807131338138_AddPatientDocuments.resx">
+      <DependentUpon>201807131338138_AddPatientDocuments.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

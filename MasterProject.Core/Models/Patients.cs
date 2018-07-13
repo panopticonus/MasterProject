@@ -1,6 +1,7 @@
 namespace MasterProject.Core.Models
 {
     using System;
+    using System.Collections.Generic;
 
     public partial class Patients
     {
@@ -17,5 +18,6 @@ namespace MasterProject.Core.Models
         public string PhoneNumber { get; set; }
         public int NationalityId { get; set; }
         public virtual Countries Nationality { get; set; }
+        public virtual List<PatientDocuments> PatientDocuments { get; set; }
     }
 }

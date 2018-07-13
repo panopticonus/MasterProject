@@ -18,6 +18,17 @@
             });
         });
 
+        $(document).ready(function () {
+            @if (TempData["Success"] != null && TempData["Success"].ToString() == "OK")
+            {
+                <text>
+                    toastr.success('Poprawnie dodano dokument');
+                </text>
+
+                @(TempData["Success"] = null)
+            }
+        });
+
         $("#savePatientDataForm").submit(function (event) {
             event.preventDefault();
             $.ajax({
@@ -48,9 +59,9 @@
                 async: false,
                 dataType: 'json',
                 success: function (data) {
-                    if (data != null && data.type == 'OK') {
+                    if (data != null && data.type === 'OK') {
                         toastr.success(data.message);
-                        setTimeout(function () { window.location.reload() },
+                        setTimeout(function () { location.reload() },
                             2000);
                     }
                 },
@@ -139,7 +150,7 @@
                         }
                     </div>
                 </div>
-                <div class="container">
+                <div class="container mt-3 mb-3">
                     <button data-toggle="modal" data-target="#addNoteModal" class="btn btn-primary">
                         <span data-feather="file-plus"></span>
                         Dodaj notatkę
@@ -147,7 +158,23 @@
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane fade" id="documents">
-                ccc
+                <div class="container">
+                    @foreach (var item in Model.PatientDocuments.OrderByDescending(x => x.AdditionDateTime))
+                    {
+                        <div class="form-group m-3">
+                            <label class="col-form-label">
+                                <strong>@item.FileName</strong>
+                            </label>
+                            <a href="@Url.Action("GetPdf","Home", new {fileName = item.Path})" target="_blank" class="w-25 form-control btn btn-info">Podgląd</a>
+                        </div>
+                    }
+                </div>
+                <div class="container mt-3 mb-3">
+                    <button data-toggle="modal" data-target="#addDocumentModal" class="btn btn-primary">
+                        <span data-feather="file-plus"></span>
+                        Dodaj dokument
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -166,10 +193,32 @@
                             </label>
                             <textarea class="form-control" autofocus required="required" style="height: 100px;" id="noteText"></textarea>
                         </div>
-                        <input type="hidden" name="patientId" id="patientId" value="@Model.Id" />
                     </div>
                     <div class="modal-footer">
                         <button type="submit" id="addNote" class="btn btn-success">Dodaj</button>
+                        <button class="btn btn-danger" data-dismiss="modal">Anuluj</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addDocumentModal" role="dialog" aria-labelledby="addDocumentModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title"><strong>Dodawanie</strong> dokumentu</h3>
+                </div>
+                <form id="addDocumentForm" enctype="multipart/form-data" method="post" action="@Url.Action("AddDocument","Patient")">
+                    <div class="modal-body">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="myFile" name="myFile" required>
+                            <label class="custom-file-label" for="myFile">Wybierz plik...</label>
+                        </div>
+                        <input type="hidden" name="patientId" id="patientId" value="@Model.Id" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" id="addDocument" class="btn btn-success">Dodaj</button>
                         <button class="btn btn-danger" data-dismiss="modal">Anuluj</button>
                     </div>
                 </form>

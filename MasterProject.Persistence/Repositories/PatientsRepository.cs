@@ -145,5 +145,19 @@
 
             return patientNotes;
         }
+
+        public void AddDocument(string fileName, int patientId, string userId)
+        {
+            var patientDocument = new PatientDocuments
+            {
+                AdditionDateTime = DateTime.Now,
+                FileName = fileName,
+                PatientId = patientId,
+                UserId = userId
+            };
+
+            _context.PatientDocuments.Add(patientDocument);
+            _context.SaveChanges();
+        }
     }
 }

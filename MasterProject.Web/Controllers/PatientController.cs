@@ -1,13 +1,14 @@
 ﻿namespace MasterProject.Web.Controllers
 {
     using Core.Dto;
-    using Core.Enums;
     using Core.Interfaces.Managers;
     using Core.Interfaces.Repositories;
+    using Microsoft.AspNet.Identity;
     using Models;
     using System;
+    using System.IO;
+    using System.Web;
     using System.Web.Mvc;
-    using Microsoft.AspNet.Identity;
 
     [Authorize]
     public class PatientController : Controller
@@ -15,12 +16,14 @@
         private readonly IPatientsRepository _repository;
         private readonly ILanguagesRepository _languagesRepository;
         private readonly IHomeManager _homeManager;
+        private readonly IPatientManager _patientManager;
 
-        public PatientController(IPatientsRepository repository, ILanguagesRepository languagesRepository, IHomeManager homeManager)
+        public PatientController(IPatientsRepository repository, ILanguagesRepository languagesRepository, IHomeManager homeManager, IPatientManager patientManager)
         {
             this._repository = repository;
             this._languagesRepository = languagesRepository;
             this._homeManager = homeManager;
+            this._patientManager = patientManager;
         }
 
         [Authorize(Roles = "Doctor, Nurse")]
@@ -96,7 +99,6 @@
         public ActionResult EditPatient(int id)
         {
             var patient = this._repository.GetPatient(id);
-
             var countryList = _languagesRepository.GetCountriesList();
 
             var model = new EditPatientViewModel
@@ -120,7 +122,8 @@
                 NationalityName = patient.Nationality.Name,
                 CountryId = patient.Address.CountryId,
                 NationalityId = patient.NationalityId,
-                PatientNotes = _repository.GetPatientNotes(patient.Id)
+                PatientNotes = _repository.GetPatientNotes(patient.Id),
+                PatientDocuments = _patientManager.GetPatientDocuments(patient.PatientDocuments)
             };
 
             return View(model);
@@ -256,6 +259,43 @@
                     type = "OK",
                     message = "Poprawnie dodano notatkę"
                 });
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Doctor, Nurse")]
+        public ActionResult AddDocument(HttpPostedFileBase myFile, int patientId)
+        {
+            try
+            {
+                var fileName = "";
+
+                if (myFile != null && myFile.ContentLength > 0)
+                {
+                    fileName = Path.GetFileName(myFile.FileName);
+
+                    var path = Server.MapPath(Path.Combine("~/App_Data/PatientDocuments/", patientId.ToString()));
+                    if (Directory.Exists(path))
+                    {
+                        myFile.SaveAs(Path.Combine(path, fileName));
+                    }
+                    else
+                    {
+                        Directory.CreateDirectory(path);
+                        myFile.SaveAs(Path.Combine(path, fileName));
+                    }
+                }
+
+                var userId = User.Identity.GetUserId();
+                this._repository.AddDocument(fileName, patientId, userId);
+
+                TempData["Success"] = "OK";
+
+                return RedirectToAction("EditPatient", new { id = patientId });
             }
             catch (Exception ex)
             {
