@@ -40,5 +40,6 @@
         public List<CountryHeaderDto> Countries { get; set; }
         public string CountryName { get; set; }
         public string NationalityName { get; set; }
+        public List<PatientNotesDto> PatientNotes { get; set; }
     }
 }

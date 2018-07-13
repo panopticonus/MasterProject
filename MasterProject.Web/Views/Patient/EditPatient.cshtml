@@ -119,11 +119,32 @@
                 @Html.Partial("_PatientData", Model)
             </div>
             <div role="tabpanel" class="tab-pane fade" id="notes">
-                <br>
-                <button data-toggle="modal" data-target="#addNoteModal" class="btn btn-primary">
-                    <span data-feather="file-plus"></span>
-                    Dodaj notatkę
-                </button>
+                <div class="container">
+                    <div class="row">
+                        @foreach (var item in Model.PatientNotes.OrderByDescending(x => x.CreateDateTime))
+                        {
+                            <div class="col-sm-5 border border-primary rounded m-3">
+                                <div class="row">
+                                    <div class="col-sm-6 text-center">
+                                        <em><strong>Data dodania:</strong><br /> @item.CreateDateTime.ToLocalTime()</em>
+                                    </div>
+                                    <div class="col-sm-6 text-center">
+                                        <em><strong>Autor:</strong><br /> @item.UserName</em>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <textarea disabled style="height: 100px; width: 100%">@item.Content</textarea>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="container">
+                    <button data-toggle="modal" data-target="#addNoteModal" class="btn btn-primary">
+                        <span data-feather="file-plus"></span>
+                        Dodaj notatkę
+                    </button>
+                </div>
             </div>
             <div role="tabpanel" class="tab-pane fade" id="documents">
                 ccc

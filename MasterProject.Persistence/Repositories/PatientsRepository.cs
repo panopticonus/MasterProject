@@ -5,6 +5,7 @@
     using Core.Interfaces.Repositories;
     using Core.Models;
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Dynamic;
 
@@ -129,6 +130,20 @@
 
             _context.PatientNotes.Add(patientNote);
             _context.SaveChanges();
+        }
+
+        public List<PatientNotesDto> GetPatientNotes(int id)
+        {
+            var patientNotes = (from notes in _context.PatientNotes
+                                where notes.PatientId == id
+                                select new PatientNotesDto
+                                {
+                                    Content = notes.Content,
+                                    CreateDateTime = notes.CreateDateTime,
+                                    UserName = notes.User.FirstName + " " + notes.User.LastName
+                                }).ToList();
+
+            return patientNotes;
         }
     }
 }

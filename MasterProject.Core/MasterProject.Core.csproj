@@ -59,6 +59,7 @@
     <Compile Include="Dto\DataPoints.cs" />
     <Compile Include="Dto\DataTablesObject.cs" />
     <Compile Include="Dto\PatientDto.cs" />
+    <Compile Include="Dto\PatientNotestDto.cs" />
     <Compile Include="Dto\SearchFilters.cs" />
     <Compile Include="Enums\DeviceTypes.cs" />
     <Compile Include="Enums\Roles.cs" />

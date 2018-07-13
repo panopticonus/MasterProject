@@ -119,7 +119,8 @@
                 CountryName = patient.Address.Country.Name,
                 NationalityName = patient.Nationality.Name,
                 CountryId = patient.Address.CountryId,
-                NationalityId = patient.NationalityId
+                NationalityId = patient.NationalityId,
+                PatientNotes = _repository.GetPatientNotes(patient.Id)
             };
 
             return View(model);
