@@ -53,7 +53,7 @@
 
                 return newPatient.Id;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return -1;
             }
@@ -112,7 +112,7 @@
 
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }

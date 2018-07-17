@@ -39,19 +39,38 @@
             return new DataPoint(DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss"), Convert.ToDouble(apiResponse.Replace(".", ",")));
         }
 
-        public void SaveData()
+        public void SaveData(string patientName, string deviceName)
         {
             var csv = new StringBuilder();
+
+#warning: do testowania
+            //for (var i = 0; i < 8; i++)
+            //{
+            //    _dic.Add(DateTime.Now.AddMinutes(i), 12);
+            //}
 
             foreach (var item in _dic)
             {
                 csv.AppendLine($"{item.Value},{item.Key:yyyy-MM-dd HH:mm:ss}");
             }
 
-            var path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            path += @"\Medical Data\data.csv";
+            var desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory);
+            var date = DateTime.Now;
 
-            File.WriteAllText(path, csv.ToString());
+            var path = Path.Combine(desktopPath, "Dane medyczne", patientName, deviceName, date.ToString("dd-MM-yyyy"));
+            var documentName = "data" + date.ToShortTimeString().Replace(':', '_') + ".csv";
+
+            if (Directory.Exists(path))
+            {
+                File.WriteAllText(Path.Combine(path, documentName), csv.ToString());
+            }
+            else
+            {
+                Directory.CreateDirectory(path);
+                File.WriteAllText(Path.Combine(path, documentName), csv.ToString());
+            }
+
+            _dic.Clear();
         }
     }
 }

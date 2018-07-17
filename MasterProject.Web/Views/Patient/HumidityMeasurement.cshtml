@@ -29,7 +29,9 @@
 
         <div id="chartContainer" style="height: 600px"></div>
 
-        <div class="row">
+        <div class="row" style="height: 50px">
+        </div>
+        <div class="row text-right">
             <div class="col">
                 <button type="button" class="btn btn-primary" style="width: 100px;" onClick="reset()">Reset</button>
             </div>
@@ -37,7 +39,8 @@
                 <button type="button" class="btn btn-danger" style="width: 100px;" onClick="stop()">Stop</button>
                 <button type="button" class="btn btn-success" style="width: 100px;" onClick="start()">Start</button>
             </div>
-            <div class="col">
+            <div class="col text-left">
+                <button type="button" class="btn btn-primary" onClick="save()">Zapisz do pliku csv</button>
             </div>
         </div>
     </div>
@@ -119,7 +122,7 @@
                     error = true;
                 }
             });
-            
+
             if (error)
                 return;
 
@@ -146,6 +149,24 @@
             dps = [];
             chart.options.data[0].dataPoints = dps;
             chart.render();
+        }
+
+        function save() {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("SaveData")',
+                data: { patientName: '@Model.Name', deviceName: 'Wilgotność' },
+                async: false,
+                dataType: 'json',
+                success: function(result) {
+                    if (result != null && result.type == 'OK') {
+                        toastr.success(result.message);
+                    }
+                },
+                error: function() {
+                    toastr.error('Wystąpił błąd');
+                }
+            });
         }
     </script>
 }

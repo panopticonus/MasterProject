@@ -6,6 +6,6 @@
     public class AddPatientViewModel
     {
         public List<CountryHeaderDto> Countries { get; set; }
-
+        public int PolishCountryId { get; set; }
     }
 }

@@ -87,7 +87,7 @@
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Kraj</label>
-                            @Html.DropDownListFor(m => m.Countries, Model.Countries.Select(f => new SelectListItem
+                            @Html.DropDownListFor(m => m.PolishCountryId, Model.Countries.Select(f => new SelectListItem
                             {
                                 Value = f.Id.ToString(),
                                 Text = f.Name
@@ -117,7 +117,7 @@
                     <div class="row">
                         <div class="col-sm-6 form-group">
                             <label>Obywatelstwo</label>
-                            @Html.DropDownListFor(m => m.Countries, Model.Countries.Select(f => new SelectListItem
+                            @Html.DropDownListFor(m => m.PolishCountryId, Model.Countries.Select(f => new SelectListItem
                             {
                                 Value = f.Id.ToString(),
                                 Text = f.Name

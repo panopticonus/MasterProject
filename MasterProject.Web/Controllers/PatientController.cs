@@ -57,6 +57,7 @@
         {
             var model = new AddPatientViewModel
             {
+                PolishCountryId = 178,
                 Countries = _languagesRepository.GetCountriesList()
             };
 
@@ -225,11 +226,11 @@
 
         [HttpPost]
         [Authorize(Roles = "Doctor, Nurse")]
-        public JsonResult SaveData()
+        public JsonResult SaveData(string patientName, string deviceName)
         {
             try
             {
-                _homeManager.SaveData();
+                _homeManager.SaveData(patientName, deviceName);
                 return Json(new
                 {
                     type = "OK",
@@ -272,28 +273,33 @@
         {
             try
             {
-                var fileName = "";
+                TempData["DocumentSuccess"] = "ERROR";
 
-                if (myFile != null && myFile.ContentLength > 0)
+                if (IsValidContentType(myFile.ContentType))
                 {
-                    fileName = Path.GetFileName(myFile.FileName);
+                    var fileName = "";
 
-                    var path = Server.MapPath(Path.Combine("~/App_Data/PatientDocuments/", patientId.ToString()));
-                    if (Directory.Exists(path))
+                    if (myFile != null && myFile.ContentLength > 0)
                     {
-                        myFile.SaveAs(Path.Combine(path, fileName));
+                        fileName = Path.GetFileName(myFile.FileName);
+
+                        var path = Server.MapPath(Path.Combine("~/App_Data/PatientDocuments/", patientId.ToString()));
+                        if (Directory.Exists(path))
+                        {
+                            myFile.SaveAs(Path.Combine(path, fileName));
+                        }
+                        else
+                        {
+                            Directory.CreateDirectory(path);
+                            myFile.SaveAs(Path.Combine(path, fileName));
+                        }
                     }
-                    else
-                    {
-                        Directory.CreateDirectory(path);
-                        myFile.SaveAs(Path.Combine(path, fileName));
-                    }
+
+                    var userId = User.Identity.GetUserId();
+                    this._repository.AddDocument(fileName, patientId, userId);
+
+                    TempData["DocumentSuccess"] = "OK";
                 }
-
-                var userId = User.Identity.GetUserId();
-                this._repository.AddDocument(fileName, patientId, userId);
-
-                TempData["Success"] = "OK";
 
                 return RedirectToAction("EditPatient", new { id = patientId });
             }
@@ -301,6 +307,11 @@
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        private bool IsValidContentType(string contentType)
+        {
+            return contentType.Equals("application/pdf");
         }
     }
 }

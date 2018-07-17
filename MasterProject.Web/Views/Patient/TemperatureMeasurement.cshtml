@@ -116,7 +116,7 @@
                         yVal = result.data.Y;
                     }
                 },
-                error: function () {
+                error: function() {
                     toastr.error('Nie można połączyć się z serwerem zdalnym');
                     stop();
                     error = true;
@@ -140,7 +140,7 @@
         }
 
         function start() {
-            interval = setInterval(function () { updateChart() }, updateInterval);
+            interval = setInterval(function() { updateChart() }, updateInterval);
         }
 
         function reset() {
@@ -155,12 +155,16 @@
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("SaveData")',
+                data: { patientName: '@Model.Name', deviceName: 'Temperatura' },
                 async: false,
                 dataType: 'json',
                 success: function(result) {
                     if (result != null && result.type == 'OK') {
                         toastr.success(result.message);
                     }
+                },
+                error: function() {
+                    toastr.error('Wystąpił błąd');
                 }
             });
         }

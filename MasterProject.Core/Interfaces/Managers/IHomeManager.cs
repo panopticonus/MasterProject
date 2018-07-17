@@ -5,6 +5,6 @@
     public interface IHomeManager
     {
         DataPoint GetData(int deviceId);
-        void SaveData();
+        void SaveData(string patientName, string deviceName);
     }
 }

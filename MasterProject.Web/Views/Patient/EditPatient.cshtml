@@ -19,13 +19,21 @@
         });
 
         $(document).ready(function () {
-            @if (TempData["Success"] != null && TempData["Success"].ToString() == "OK")
+            @if (TempData["DocumentSuccess"] != null)
             {
-                <text>
-                    toastr.success('Poprawnie dodano dokument');
-                </text>
-
-                @(TempData["Success"] = null)
+                if(TempData["DocumentSuccess"].ToString() == "OK")
+                { 
+                    <text>
+                        toastr.success('Poprawnie dodano dokument');
+                    </text>
+                }
+                else if (TempData["DocumentSuccess"].ToString() == "ERROR")
+                {
+                    <text>
+                        toastr.warning('Niepoprawny format danych');
+                    </text>
+                }
+                @(TempData["DocumentSuccess"] = null)
             }
         });
 
@@ -212,7 +220,7 @@
                 <form id="addDocumentForm" enctype="multipart/form-data" method="post" action="@Url.Action("AddDocument","Patient")">
                     <div class="modal-body">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="myFile" name="myFile" required>
+                            <input type="file" class="custom-file-input" id="myFile" name="myFile" accept="application/pdf" required>
                             <label class="custom-file-label" for="myFile">Wybierz plik...</label>
                         </div>
                         <input type="hidden" name="patientId" id="patientId" value="@Model.Id" />
