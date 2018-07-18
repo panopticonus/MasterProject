@@ -18,6 +18,7 @@
         DbSet<ErrorLogs> ErrorLogs { get; set; }
         DbSet<PatientNotes> PatientNotes { get; set; }
         DbSet<PatientDocuments> PatientDocuments { get; set; }
+        DbSet<PatientLogs> PatientLogs { get; set; }
         int SaveChanges();
     }
 }

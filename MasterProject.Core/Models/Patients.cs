@@ -3,6 +3,7 @@ namespace MasterProject.Core.Models
     using System;
     using System.Collections.Generic;
 
+    [Serializable]
     public partial class Patients
     {
         public int Id { get; set; }

@@ -2,20 +2,27 @@
 {
     using Core;
     using Core.Dto;
+    using Core.ExtensionMethods;
     using Core.Interfaces.Repositories;
     using Core.Models;
+    using KellermanSoftware.CompareNetObjects;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Dynamic;
+    using System.Text;
 
     public class PatientsRepository : IPatientsRepository
     {
         private readonly IHospitalContext _context;
+        private readonly IErrorLogsRepository _errorLogsRepository;
 
-        public PatientsRepository(IHospitalContext context)
+        public PatientsRepository(IHospitalContext context, IErrorLogsRepository errorLogsRepository)
         {
             _context = context;
+            _errorLogsRepository = errorLogsRepository;
         }
 
         public int AddPatient(PatientDto patient)
@@ -53,8 +60,9 @@
 
                 return newPatient.Id;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _errorLogsRepository.LogError(ex);
                 return -1;
             }
         }
@@ -87,33 +95,47 @@
             return _context.Patients.Single(x => x.Id == id);
         }
 
-        public bool EditPatient(PatientDto patient)
+        public bool EditPatient(PatientDto patientDto, string userId)
         {
             try
             {
-                var oldPatient = _context.Patients.Single(x => x.Id == patient.Id);
+                var context = new HospitalContext();
+                var userManager = new UserManager<Users>(new UserStore<Users>(context));
 
-                oldPatient.Address.BuildingNumber = patient.BuildingNumber;
-                oldPatient.Address.FlatNumber = patient.FlatNumber;
-                oldPatient.Address.City = patient.City;
-                oldPatient.Address.CountryId = patient.CountryId;
-                oldPatient.Address.Street = patient.Street;
-                oldPatient.Address.ZipCode = patient.ZipCode;
-                oldPatient.CityOfBirth = patient.CityOfBirth;
-                oldPatient.DateOfBirth = patient.DateOfBirth;
-                oldPatient.FirstName = patient.FirstName;
-                oldPatient.NationalityId = patient.NationalityId;
-                oldPatient.Pesel = patient.Pesel;
-                oldPatient.PhoneNumber = patient.PhoneNumber;
-                oldPatient.SecondName = patient.SecondName;
-                oldPatient.Surname = patient.Surname;
+                var user = userManager.FindById(userId);
+                var userName = $"{user.FirstName} {user.LastName}";
+                var patient = context.Patients.Single(x => x.Id == patientDto.Id);
+                var oldAddress = MyExtentions.DeepClone(patient.Address);
+                var oldPatient = MyExtentions.DeepClone(patient);
 
-                _context.SaveChanges();
+                patient.Address.BuildingNumber = patientDto.BuildingNumber;
+                patient.Address.FlatNumber = patientDto.FlatNumber;
+                patient.Address.City = patientDto.City;
+                patient.Address.CountryId = patientDto.CountryId;
+                patient.Address.Street = patientDto.Street;
+                patient.Address.ZipCode = patientDto.ZipCode;
+                patient.CityOfBirth = patientDto.CityOfBirth;
+                patient.DateOfBirth = patientDto.DateOfBirth;
+                patient.FirstName = patientDto.FirstName;
+                patient.NationalityId = patientDto.NationalityId;
+                patient.Pesel = patientDto.Pesel;
+                patient.PhoneNumber = patientDto.PhoneNumber;
+                patient.SecondName = patientDto.SecondName;
+                patient.Surname = patientDto.Surname;
+
+                var address = MyExtentions.DeepClone(patient.Address);
+                var addressLogs = LogAddressChanges(oldAddress, address);
+                var logs = LogPatientChanges(oldPatient, patient, userName);
+                logs.Content += addressLogs;
+
+                context.PatientLogs.Add(logs);
+                context.SaveChanges();
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _errorLogsRepository.LogError(ex);
                 return false;
             }
         }
@@ -158,6 +180,97 @@
 
             _context.PatientDocuments.Add(patientDocument);
             _context.SaveChanges();
+        }
+
+        private static string LogAddressChanges(Addresses oldAddress, Addresses address)
+        {
+            var propertyCount = typeof(Addresses).GetProperties().Length;
+            var basicComparison = new CompareLogic
+            {
+                Config = new ComparisonConfig { MaxDifferences = propertyCount, IgnoreObjectTypes = true }
+            };
+
+            basicComparison.Config.MembersToInclude = new List<string>
+            {
+                "BuildingNumber",
+                "FlatNumber",
+                "City",
+                "CountryId",
+                "Street",
+                "ZipCode"
+            };
+            var diffs = basicComparison.Compare(oldAddress, address).Differences;
+
+            var sb = new StringBuilder();
+            sb.AppendLine("Zmieniono dane adresowe:");
+            foreach (var diff in diffs)
+            {
+                sb.AppendLine(diff.PropertyName);
+                sb.AppendLine("Stara wartość: " + diff.Object1Value);
+                sb.AppendLine("Nowa wartość: " + diff.Object2Value + "\n");
+            }
+            if (!string.IsNullOrEmpty(sb.ToString()))
+            {
+                sb = sb.Replace("BuildingNumber", "Nr budynku");
+                sb = sb.Replace("FlatNumber", "Nr mieszkania");
+                sb = sb.Replace("City", "Miasto");
+                sb = sb.Replace("ZipCode", "Kod pocztowy");
+                sb = sb.Replace("Street", "Ulica");
+                sb = sb.Replace("CountryId", "ID kraju");
+            }
+
+            return sb.ToString();
+        }
+
+        private static PatientLogs LogPatientChanges(Patients oldPatient, Patients patient, string userName)
+        {
+            var propertyCount = typeof(Patients).GetProperties().Length;
+            var basicComparison = new CompareLogic
+            {
+                Config = new ComparisonConfig { MaxDifferences = propertyCount, IgnoreObjectTypes = true }
+            };
+
+            basicComparison.Config.MembersToInclude = new List<string>
+            {
+                "FirstName",
+                "SecondName",
+                "Surname",
+                "Pesel",
+                "DateOfBirth",
+                "CityOfBirth",
+                "PhoneNumber",
+                "NationalityId"
+            };
+            var diffs = basicComparison.Compare(oldPatient, patient).Differences;
+
+            var sb = new StringBuilder();
+            sb.AppendLine("Zmieniono dane pacjenta:");
+            foreach (var diff in diffs)
+            {
+                sb.AppendLine(diff.PropertyName);
+                sb.AppendLine("Stara wartość: " + diff.Object1Value);
+                sb.AppendLine("Nowa wartość: " + diff.Object2Value + "\n");
+            }
+            if (!string.IsNullOrEmpty(sb.ToString()))
+            {
+                sb = sb.Replace("FirstName", "Imię");
+                sb = sb.Replace("SecondName", "Drugie imię");
+                sb = sb.Replace("Surname", "Nazwisko");
+                sb = sb.Replace("DateOfBirth", "Data urodzenia");
+                sb = sb.Replace("CityOfBirth", "Miejsce urodzenia");
+                sb = sb.Replace("PhoneNumber", "Numer telefonu");
+                sb = sb.Replace("NationalityId", "ID obywatelstwa");
+            }
+
+            var logs = new PatientLogs
+            {
+                EventDateTime = DateTime.Now,
+                PatientId = patient.Id,
+                UserName = userName,
+                Content = sb.ToString()
+            };
+
+            return logs;
         }
     }
 }

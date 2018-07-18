@@ -15,10 +15,12 @@
     public class AccountsRepository : IAccountsRepository
     {
         private readonly IHospitalContext _context;
+        private readonly IErrorLogsRepository _errorLogsRepository;
 
-        public AccountsRepository(IHospitalContext context)
+        public AccountsRepository(IHospitalContext context, IErrorLogsRepository errorLogsRepository)
         {
             _context = context;
+            _errorLogsRepository = errorLogsRepository;
         }
 
         public bool CreateAccount(AccountDto account)
@@ -45,8 +47,9 @@
 
                 return result.Succeeded;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _errorLogsRepository.LogError(ex);
                 return false;
             }
         }
@@ -62,8 +65,9 @@
 
                 return user.IsDataComplete;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _errorLogsRepository.LogError(ex);
                 return false;
             }
         }
@@ -133,8 +137,9 @@
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _errorLogsRepository.LogError(ex);
                 return false;
             }
         }
@@ -215,8 +220,9 @@
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _errorLogsRepository.LogError(ex);
                 return false;
             }
         }

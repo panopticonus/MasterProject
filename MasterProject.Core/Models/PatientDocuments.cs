@@ -2,6 +2,7 @@
 {
     using System;
 
+    [Serializable]
     public class PatientDocuments
     {
         public int Id { get; set; }

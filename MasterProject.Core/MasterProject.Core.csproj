@@ -65,6 +65,7 @@
     <Compile Include="Enums\DeviceTypes.cs" />
     <Compile Include="Enums\Roles.cs" />
     <Compile Include="Enums\Specialties.cs" />
+    <Compile Include="ExtensionMethods\MyExtentions.cs" />
     <Compile Include="IHospitalContext.cs" />
     <Compile Include="Interfaces\Managers\IHomeManager.cs" />
     <Compile Include="Interfaces\Managers\IPatientManager.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Models\HospitalStays.cs" />
     <Compile Include="Models\Nurses.cs" />
     <Compile Include="Models\PatientDocuments.cs" />
+    <Compile Include="Models\PatientLogs.cs" />
     <Compile Include="Models\PatientNotes.cs" />
     <Compile Include="Models\Patients.cs" />
     <Compile Include="Models\Roles.cs" />

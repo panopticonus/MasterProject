@@ -1,5 +1,8 @@
 namespace MasterProject.Core.Models
 {
+    using System;
+
+    [Serializable]
     public partial class Countries
     {
         public int Id { get; set; }

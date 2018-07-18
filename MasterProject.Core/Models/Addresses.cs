@@ -1,5 +1,8 @@
 namespace MasterProject.Core.Models
 {
+    using System;
+
+    [Serializable]
     public partial class Addresses
     {
         public int Id { get; set; }

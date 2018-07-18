@@ -28,6 +28,7 @@ namespace MasterProject.Persistence
         public virtual DbSet<ErrorLogs> ErrorLogs { get; set; }
         public virtual DbSet<PatientNotes> PatientNotes { get; set; }
         public DbSet<PatientDocuments> PatientDocuments { get; set; }
+        public DbSet<PatientLogs> PatientLogs { get; set; }
 
         public override int SaveChanges()
         {
@@ -53,7 +54,6 @@ namespace MasterProject.Persistence
             }
         }
 
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new AddressesConfiguration());
@@ -67,6 +67,7 @@ namespace MasterProject.Persistence
             modelBuilder.Configurations.Add(new ErrorLogsConfiguration());
             modelBuilder.Configurations.Add(new PatientNotesConfiguration());
             modelBuilder.Configurations.Add(new PatientDocumentsConfiguration());
+            modelBuilder.Configurations.Add(new PatientLogsConfiguration());
             
             base.OnModelCreating(modelBuilder);
         }

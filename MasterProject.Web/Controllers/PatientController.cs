@@ -152,8 +152,9 @@
                 Pesel = form["Pesel"],
                 NationalityId = Convert.ToInt32(form["NationalityId"])
             };
+            var userId = User.Identity.GetUserId();
 
-            var result = _repository.EditPatient(patient);
+            var result = _repository.EditPatient(patient, userId);
 
             return Json(new
             {
