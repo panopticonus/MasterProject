@@ -10,5 +10,6 @@ namespace MasterProject.Core.Interfaces.Repositories
         int GetUserRole(string id);
         DataTablesObject<AccountDto> GetAccountList(SearchFilters searchFilter);
         bool EditAccount(bool idActive, string id);
+        string GetUserName(string userId);
     }
 }

@@ -226,5 +226,23 @@
                 return false;
             }
         }
+
+        public string GetUserName(string userId)
+        {
+            try
+            {
+                var context = new HospitalContext();
+                var userManager = new UserManager<Users>(new UserStore<Users>(context));
+
+                var user = userManager.FindById(userId);
+
+                return $"{user.FirstName} {user.LastName}";
+            }
+            catch (Exception ex)
+            {
+                _errorLogsRepository.LogError(ex);
+                return string.Empty;
+            }
+        }
     }
 }
