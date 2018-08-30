@@ -10,15 +10,20 @@
     {
         public List<PatientDocumentsDto> GetPatientDocuments(List<PatientDocuments> patientDocuments)
         {
-            var path = $"~/App_Data/PatientDocuments/{patientDocuments.First().PatientId}/";
+            var patientDocumentsDto = new List<PatientDocumentsDto>();
 
-            var patientDocumentsDto = (from document in patientDocuments
+            if (patientDocuments.Any())
+            {
+                var path = $"~/App_Data/PatientDocuments/{patientDocuments.First().PatientId}/";
+
+                patientDocumentsDto = (from document in patientDocuments
                                        select new PatientDocumentsDto
                                        {
                                            AdditionDateTime = document.AdditionDateTime,
                                            Path = path + document.FileName,
                                            FileName = document.FileName
                                        }).ToList();
+            }
 
             return patientDocumentsDto;
         }

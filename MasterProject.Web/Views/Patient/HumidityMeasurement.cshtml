@@ -33,14 +33,14 @@
         </div>
         <div class="row text-right">
             <div class="col">
-                <button type="button" class="btn btn-primary" style="width: 100px;" onClick="reset()">Reset</button>
+                <button type="button" id="btnReset" class="btn btn-primary" disabled style="width: 100px;" onClick="reset()">Reset</button>
             </div>
             <div class="col text-center">
-                <button type="button" class="btn btn-danger" style="width: 100px;" onClick="stop()">Stop</button>
-                <button type="button" class="btn btn-success" style="width: 100px;" onClick="start()">Start</button>
+                <button type="button" id="btnStop" class="btn btn-danger" disabled style="width: 100px;" onClick="stop()">Stop</button>
+                <button type="button" id="btnStart" class="btn btn-success" style="width: 100px;" onClick="start()">Start</button>
             </div>
             <div class="col text-left">
-                <button type="button" class="btn btn-primary" onClick="save()">Zapisz do pliku csv</button>
+                <button type="button" id="btnSave" class="btn btn-primary" disabled onClick="save()">Zapisz do pliku csv</button>
             </div>
         </div>
     </div>
@@ -111,7 +111,7 @@
                 async: false,
                 dataType: 'json',
                 success: function(result) {
-                    if (result != null) {
+                    if (result !== null) {
                         xVal = result.data.X;
                         yVal = result.data.Y;
                     }
@@ -137,10 +137,17 @@
         function stop() {
             clearInterval(interval);
             interval = null;
+            $('#btnStop').prop('disabled', true);
+            $('#btnSave').prop('disabled', false);
+            $('#btnStart').prop('disabled', false);
         }
 
         function start() {
-            interval = setInterval(function () { updateChart() }, updateInterval);
+            interval = setInterval(function () { updateChart(); }, updateInterval);
+            $('#btnStop').prop('disabled', false);
+            $('#btnStart').prop('disabled', true);
+            $('#btnReset').prop('disabled', false);
+            $('#btnSave').prop('disabled', true);
         }
 
         function reset() {
@@ -149,9 +156,14 @@
             dps = [];
             chart.options.data[0].dataPoints = dps;
             chart.render();
+            $('#btnStop').prop('disabled', true);
+            $('#btnStart').prop('disabled', false);
+            $('#btnReset').prop('disabled', true);
+            $('#btnSave').prop('disabled', true);
         }
 
         function save() {
+            $('#btnSave').prop('disabled', true);
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("SaveData")',
@@ -159,7 +171,7 @@
                 async: false,
                 dataType: 'json',
                 success: function(result) {
-                    if (result != null && result.type == 'OK') {
+                    if (result !== null && result.type === 'OK') {
                         toastr.success(result.message);
                     }
                 },
