@@ -34,9 +34,12 @@
             var url = new Uri(stringUrl, UriKind.Absolute);
             var apiResponse = client.DownloadString(url);
 
-            _dic.Add(DateTime.Now, Convert.ToDouble(apiResponse.Replace(".", ",")));
+            var doubleApiResponse = Convert.ToDouble(apiResponse.Replace(".", ","));
+            var date = DateTime.Now;
 
-            return new DataPoint(DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss"), Convert.ToDouble(apiResponse.Replace(".", ",")));
+            _dic.Add(date, doubleApiResponse);
+
+            return new DataPoint(date.ToString("yyyy-MM-ddTHH:mm:ss"), doubleApiResponse);
         }
 
         public void SaveData(string patientName, string deviceName)
